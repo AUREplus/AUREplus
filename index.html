@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AUREplus | Asistentes virtuales 24/7 para joyerías</title>
+<meta name="description" content="AUREplus crea asistentes virtuales para joyerías: una recepcionista 24/7 por WhatsApp, Instagram y web que responde dudas y envía imágenes de las piezas.">
+<link rel="icon" type="image/png" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wine:#4B0002; --gold:#FFC600; --cream:#F3E5C5; --mist:#F6F7F9;
+  --wine-2:#6a1518; --ink:#2a0a0b; --muted:#6b5456;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--wine);line-height:1.6;overflow-x:clip}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;color:var(--wine);line-height:1.08;font-weight:700}
+h1{font-size:clamp(2.6rem,6vw,4.8rem)}
+h2{font-size:clamp(2.1rem,4.4vw,3.4rem);margin-bottom:.7rem}
+h3{font-size:1.6rem;margin-bottom:.4rem}
+a{color:inherit}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+.eyebrow{display:inline-block;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--wine);background:var(--cream);padding:6px 12px;border-radius:99px;margin-bottom:16px}
+.lead{font-size:1.1rem;color:var(--muted);max-width:620px}
+.center{text-align:center}.center .lead{margin:0 auto}
+.btn{display:inline-block;padding:14px 26px;border-radius:99px;font-weight:600;text-decoration:none;border:2px solid transparent;transition:.25s var(--ease);cursor:pointer;font-size:1rem;font-family:inherit}
+.btn-gold{background:var(--gold);color:var(--wine)}
+.btn-gold:hover{background:#ffd23d;transform:translateY(-2px)}
+.btn-line{border-color:var(--cream);color:var(--cream)}
+.btn-line:hover{background:var(--cream);color:var(--wine)}
+.btn-wine{background:var(--wine);color:var(--cream)}
+.btn-wine:hover{background:var(--wine-2)}
+
+/* Cada sección es una "hoja" que se desliza sobre la anterior */
+.sheet{position:relative;padding:110px 0;border-radius:44px 44px 0 0;margin-top:-44px}
+.sheet.light{background:var(--mist)}
+.sheet.cream{background:var(--cream)}
+.sheet.white{background:#fff}
+.sheet.dark{background:var(--wine);color:var(--cream)}
+.sheet.dark h2,.sheet.dark h3{color:var(--cream)}
+.sheet.dark .lead{color:#e0cfaa}
+
+/* Aparición al hacer scroll */
+.rv{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s)}
+.rv.in{opacity:1;transform:none}
+.js-off .rv{opacity:1;transform:none}
+
+/* NAV */
+header{position:sticky;top:0;z-index:100;background:rgba(75,0,2,.94);backdrop-filter:blur(8px)}
+nav{display:flex;align-items:center;justify-content:space-between;height:70px}
+.logo{font-family:"Cormorant Garamond",serif;font-size:1.8rem;font-weight:700;color:var(--cream);text-decoration:none;letter-spacing:.02em}
+.logo b{color:var(--gold)}
+.menu{display:flex;gap:28px;list-style:none;align-items:center}
+.menu a{color:var(--cream);text-decoration:none;font-size:.95rem;font-weight:500}
+.menu a:hover{color:var(--gold)}
+.menu a.btn{color:var(--wine);padding:10px 20px}
+.burger{display:none;background:none;border:0;color:var(--cream);font-size:1.8rem;cursor:pointer}
+
+/* PORTADA: ocupa exactamente toda la pantalla */
+.hero{background:linear-gradient(90deg,rgba(12,0,1,.9) 0%,rgba(12,0,1,.62) 42%,rgba(12,0,1,.12) 100%),linear-gradient(0deg,rgba(12,0,1,.7) 0%,rgba(12,0,1,0) 30%),url(img/hero.jpg) 16vw 61%/auto 150% no-repeat,#0c0001;color:var(--cream);height:calc(100svh - 70px);min-height:560px;display:flex;align-items:center;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;right:-160px;top:-120px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(255,198,0,.26),transparent 68%);animation:glow 7s ease-in-out infinite alternate}
+@keyframes glow{to{transform:translate(-50px,40px) scale(1.15)}}
+.hero{isolation:isolate}
+.hero .facts{background:rgba(12,0,1,.55);backdrop-filter:blur(6px);border:1px solid rgba(243,229,197,.2);border-radius:16px;padding-bottom:16px}
+.hero-videos{position:absolute;inset:0;z-index:0;background:#0c0001 url(img/hero.jpg) 16vw 61%/auto 150% no-repeat}
+.hv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease}
+.hv.on{opacity:1}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(12,0,1,.82) 0%,rgba(12,0,1,.5) 45%,rgba(12,0,1,.32) 100%),linear-gradient(0deg,rgba(12,0,1,.6) 0%,rgba(12,0,1,0) 30%)}
+.hero .grid,.hero .scroll-hint{z-index:2}
+.hero .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;position:relative;width:100%}
+.hero h1{color:var(--cream)}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero p{margin:22px 0 32px;font-size:1.15rem;max-width:520px;color:#e9d9b8}
+.hero .actions{display:flex;gap:14px;flex-wrap:wrap}
+.hero .rv{animation:up 1s var(--ease) both;opacity:1;transform:none;transition:none}
+.hero .rv:nth-child(2){animation-delay:.18s}
+@keyframes up{from{opacity:0;transform:translateY(34px)}}
+.scroll-hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);color:var(--cream);opacity:.7;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:8px}
+.scroll-hint::after{content:"";width:1px;height:34px;background:var(--gold);animation:drip 1.8s ease-in-out infinite;transform-origin:top}
+@keyframes drip{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+
+
+/* Sello de marca y datos de confianza */
+.seal{display:flex;flex-direction:column;align-items:center;gap:34px}
+.ring{width:min(300px,90%);aspect-ratio:1;border-radius:50%;border:1px solid rgba(255,198,0,.55);display:grid;place-items:center;position:relative;background:rgba(12,0,1,.5);backdrop-filter:blur(4px);box-shadow:0 0 0 14px rgba(255,198,0,.06),0 0 90px rgba(255,198,0,.16)}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;border:1px solid rgba(243,229,197,.18)}
+.ring img{width:52%;height:auto;display:block}
+.facts{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:0;width:100%;max-width:440px;border-top:1px solid rgba(243,229,197,.22)}
+.facts li{padding:18px 14px 0;text-align:center}
+.facts li+li{border-left:1px solid rgba(243,229,197,.22)}
+.facts b{display:block;font-family:"Cormorant Garamond",serif;font-size:2rem;color:var(--gold);line-height:1}
+.facts span{display:block;margin-top:6px;font-size:.78rem;color:#e0cfaa;line-height:1.35}
+.apps{display:flex;justify-content:center;align-items:center;gap:12px;height:2rem}
+.apps svg{width:26px;height:26px;fill:none;stroke:var(--gold);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.brand{display:flex;align-items:center}
+.brand img{height:34px;width:auto;display:block}
+footer .brand img{height:30px}
+/* PROCESO: tarjetas que se apilan una delante de otra */
+.stack-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:start}
+.stack-intro{position:sticky;top:120px}
+.stack-intro .lead{margin-top:10px}
+.deck{padding-bottom:20px}
+.pcard{position:sticky;top:calc(110px + var(--i)*26px);min-height:300px;border-radius:30px;padding:38px 40px;margin-bottom:60px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 -12px 40px rgba(75,0,2,.18);transform-origin:50% 0;will-change:transform}
+.pcard .n{font-family:"Cormorant Garamond",serif;font-size:5.5rem;line-height:.8;font-weight:700;opacity:.9}
+.pcard h3{font-size:2.1rem;margin:0 0 8px}
+.pcard p{max-width:380px;font-size:1.02rem}
+.pcard:nth-child(odd){background:var(--wine);color:var(--cream);box-shadow:0 -12px 40px rgba(0,0,0,.3)}
+.pcard:nth-child(even){background:var(--cream);color:var(--ink);box-shadow:0 -12px 40px rgba(75,0,2,.22);outline:1px solid rgba(75,0,2,.12)}
+.pcard:nth-child(odd) h3{color:var(--cream)}
+.pcard .n{color:var(--gold)}
+.sheet.cream .eyebrow{background:#fff}
+
+/* FUNCIONES: filas con línea, sin cajas */
+.rows{margin-top:54px;border-top:1px solid rgba(75,0,2,.18)}
+.row{display:grid;grid-template-columns:70px 1fr 1.3fr;gap:24px;align-items:baseline;padding:30px 8px;border-bottom:1px solid rgba(75,0,2,.18);transition:.4s var(--ease);position:relative}
+.row::before{content:"";position:absolute;inset:0;background:var(--cream);transform:scaleY(0);transform-origin:bottom;transition:transform .45s var(--ease);z-index:0}
+.row>*{position:relative;z-index:1}
+.row:hover::before{transform:scaleY(1)}
+.row:hover{padding-left:24px}
+.row .k{font-family:"Cormorant Garamond",serif;font-size:1.6rem;color:var(--wine-2);font-weight:700}
+.row h3{margin:0;font-size:1.9rem}
+.row p{color:var(--muted)}
+
+/* CANALES */
+.chgrid{display:grid;grid-template-columns:repeat(3,1fr);margin-top:56px}
+.ch{padding:10px 32px 10px 0;border-top:2px solid var(--gold)}
+.ch+.ch{padding-left:32px}
+.ch h3{color:var(--gold);padding-top:18px}
+.ch p{color:#e0cfaa}
+
+/* BENEFICIOS */
+.bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px;margin-top:56px;text-align:left}
+.benefit{padding-top:20px;border-top:3px solid var(--wine)}
+.benefit p{color:#5a4446}
+
+/* TIPOS */
+.tlist{margin-top:50px;display:flex;flex-wrap:wrap;gap:14px}
+.tag{font-family:"Cormorant Garamond",serif;font-size:1.8rem;font-weight:600;color:var(--wine);padding:12px 28px;border:2px solid var(--wine);border-radius:99px;transition:.3s var(--ease);cursor:default}
+.tag:hover{background:var(--wine);color:var(--gold);transform:translateY(-3px) rotate(-1deg)}
+.tnote{margin-top:26px;color:var(--muted);max-width:560px}
+
+/* FAQ */
+.faq{max-width:780px;margin:48px auto 0}
+details{border-bottom:1px solid rgba(75,0,2,.2);padding:22px 4px}
+summary{cursor:pointer;font-family:"Cormorant Garamond",serif;font-size:1.55rem;font-weight:600;color:var(--wine);list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:1.8rem;line-height:1;color:var(--wine-2);transition:transform .3s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin-top:12px;color:var(--muted);animation:fade .5s var(--ease)}
+@keyframes fade{from{opacity:0;transform:translateY(-6px)}}
+
+/* CONTACTO */
+.cta .grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.cta ol{margin-top:30px;list-style:none;counter-reset:c}
+.cta li{counter-increment:c;display:flex;gap:14px;margin-bottom:20px;color:#e9d9b8}
+.cta li::before{content:counter(c);flex:none;width:34px;height:34px;border-radius:50%;background:var(--gold);color:var(--wine);display:grid;place-items:center;font-weight:700}
+form{background:var(--mist);border-radius:26px;padding:32px;color:var(--ink)}
+label{display:block;font-size:.85rem;font-weight:600;margin:0 0 6px;color:var(--wine)}
+input,select{width:100%;padding:12px 14px;border:1px solid #d9d6cc;border-radius:10px;font:inherit;background:#fff;margin-bottom:16px}
+input:focus,select:focus{outline:2px solid var(--gold);border-color:var(--gold)}
+form .btn{width:100%}
+.note{font-size:.8rem;color:var(--muted);margin-top:10px;text-align:center}
+.note.ok{color:#2f6b2f;font-weight:600}
+.note.error{color:var(--wine-2);font-weight:600}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+
+/* Palabra "AUREplus" animada con partículas, en el titular de contacto */
+.particle-word{position:relative;display:inline-block;font-size:1.5em}
+.particle-word .pw-text{color:var(--gold);transition:opacity .5s ease}
+.pw-canvas{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);opacity:0;transition:opacity .5s ease;pointer-events:auto}
+
+footer{background:#2d0001;color:#cdb98f;padding:36px 0;font-size:.9rem;position:relative;margin-top:-44px;padding-top:80px;border-radius:44px 44px 0 0}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+footer a{text-decoration:none;margin-left:18px}footer a:hover{color:var(--gold)}
+
+@media (max-width:960px){
+  .row{grid-template-columns:50px 1fr}.row p{grid-column:2}
+}
+@media (max-width:700px){
+  .hero{height:auto;min-height:calc(100svh - 70px);padding:40px 0 90px;background:linear-gradient(rgba(12,0,1,.62),rgba(12,0,1,.62)),url(img/hero.jpg) 60% center/cover no-repeat,#0c0001}
+  .hero .grid,.stack-layout,.cta .grid{grid-template-columns:1fr;gap:36px}
+  .seal{margin:0 auto}
+  .stack-intro{position:static}
+  .sheet{padding:80px 0;border-radius:30px 30px 0 0;margin-top:-30px}
+  .burger{display:block}
+  .menu{display:none;position:absolute;top:70px;left:0;right:0;background:var(--wine);flex-direction:column;padding:20px;gap:18px}
+  .menu.open{display:flex}
+  .chgrid,.bgrid{grid-template-columns:1fr}
+  .ch,.ch+.ch{padding:10px 0 24px}
+  .pcard{padding:28px;min-height:260px}
+  .pcard .n{font-size:4rem}
+  .tag{font-size:1.4rem;padding:10px 20px}
+  footer a{margin:0 18px 0 0}
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-videos{display:none}
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .rv{opacity:1!important;transform:none!important}
+  .pw-canvas{display:none}
+  .particle-word .pw-text{opacity:1!important}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="#inicio" aria-label="AUREplus, inicio"><img src="img/wordmark-cream.png" alt="AUREplus"></a>
+      <button class="burger" id="burger" aria-label="Abrir menú" aria-controls="menu" aria-expanded="false">☰</button>
+      <ul class="menu" id="menu">
+        <li><a href="#como">Cómo funciona</a></li>
+        <li><a href="#funciones">Funciones</a></li>
+        <li><a href="#canales">Canales</a></li>
+                <li><a href="#faq">Preguntas</a></li>
+        <li><a class="btn btn-gold" href="#contacto">Prueba gratuita</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+<section class="hero">
+  <div class="hero-videos" aria-hidden="true">
+    <video class="hv" muted playsinline preload="auto" poster="img/hero.jpg"></video>
+    <video class="hv" muted playsinline preload="auto" poster="img/hero.jpg"></video>
+  </div>
+  <div class="wrap grid">
+    <div class="rv">
+      <span class="eyebrow">AUREplus · Software para joyerías</span>
+      <h1>El lujo de estar <em>siempre disponible</em>.</h1>
+    </div>
+    <div class="seal rv" aria-label="AUREplus">
+      <div class="ring"><img src="img/monogram-cream.png" alt="Monograma AUREplus"></div>
+      <ul class="facts">
+        <li><b>24/7</b><span>Atención continua</span></li>
+        <li><div class="apps">
+          <svg viewBox="0 0 24 24" role="img" aria-label="WhatsApp"><path d="M3 21l1.6-4.6A9 9 0 1 1 8 19.6L3 21z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1.2-1.6-2.3-1.1-.9.9c-1.2-.5-2.2-1.5-2.7-2.7l.9-.9L10.6 7.5 9 8.5z"/></svg>
+          <svg viewBox="0 0 24 24" role="img" aria-label="Instagram"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg>
+          <svg viewBox="0 0 24 24" role="img" aria-label="Web"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.9 5.6 3.9 9s-1.3 6.4-3.9 9c-2.6-2.6-3.9-5.6-3.9-9S9.4 5.6 12 3z"/></svg>
+        </div><span>WhatsApp, Instagram y web</span></li>
+        <li><b>100%</b><span>Solo joyerías</span></li>
+      </ul>
+    </div>
+</div>
+  <a class="scroll-hint" href="#como">Descubre</a>
+</section>
+
+<section class="sheet cream" id="como">
+  <div class="wrap stack-layout">
+    <div class="stack-intro rv">
+      <span class="eyebrow">Cómo funciona</span>
+      <h2>Acompañamos al cliente en todo su recorrido</h2>    </div>
+    <div class="deck" id="deck">
+      <article class="pcard" style="--i:0"><div class="n">01</div><div><h3>Saluda</h3><p>Da la bienvenida con el tono de tu joyería desde el primer mensaje.</p></div></article>
+      <article class="pcard" style="--i:1"><div class="n">02</div><div><h3>Escucha</h3><p>Entiende qué busca: tipo de joya, ocasión, material y presupuesto.</p></div></article>
+      <article class="pcard" style="--i:2"><div class="n">03</div><div><h3>Muestra</h3><p>Presenta las piezas que encajan con lo que la persona busca.</p></div></article>
+      <article class="pcard" style="--i:3"><div class="n">04</div><div><h3>Acompaña</h3><p>Resuelve dudas con calma, sin presionar para comprar.</p></div></article>
+      <article class="pcard" style="--i:4"><div class="n">05</div><div><h3>Fideliza</h3><p>Cuida la relación con el cliente después de la primera conversación.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="sheet white" id="funciones">
+  <div class="wrap">
+    <div class="center rv">
+      <span class="eyebrow">Funciones</span>
+      <h2>Todo lo que hace tu recepcionista virtual</h2>
+      <p class="lead">Pensado exclusivamente para el día a día de una joyería.</p>
+    </div>
+    <div class="rows">
+      <div class="row rv"><span class="k">01</span><h3>Modelos y tipos de joya</h3><p>Responde dudas sobre los modelos y los tipos de joyas de tu catálogo.</p></div>
+      <div class="row rv"><span class="k">02</span><h3>Precios y disponibilidad</h3><p>Informa de los precios y de la disponibilidad de cada pieza.</p></div>
+      <div class="row rv"><span class="k">03</span><h3>Imágenes de las piezas</h3><p>Envía fotos directamente en la conversación.</p></div>
+      <div class="row rv"><span class="k">04</span><h3>Tu identidad</h3><p>Puede llevar el nombre que elijas, o ninguno, y habla con la voz de tu joyería.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sheet dark" id="canales">
+  <div class="wrap">
+    <div class="center rv">
+      <span class="eyebrow">Canales</span>
+      <h2>Donde ya te escriben tus clientes</h2>    </div>
+    <div class="chgrid">
+      <div class="ch rv"><h3>WhatsApp</h3><p>Atiende las consultas que llegan a tu número de empresa.</p></div>
+      <div class="ch rv" style="--d:.15s"><h3>Instagram</h3><p>Atiende los mensajes directos que llegan tras ver tus publicaciones.</p></div>
+      <div class="ch rv" style="--d:.3s"><h3>Tu web</h3><p>Un asistente integrado en tu página para quien la visita.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sheet light">
+  <div class="wrap center">
+    <div class="rv"><span class="eyebrow">Por qué AUREplus</span>
+    <h2>Pensado para cuidar al cliente</h2></div>
+    <div class="bgrid">
+      <div class="benefit rv"><h3>Menos consultas sin respuesta</h3><p>Los mensajes que llegan fuera de horario ya no se quedan esperando.</p></div>
+      <div class="benefit rv" style="--d:.1s"><h3>Confianza y seguridad</h3><p>Comprar una joya es emocional y merece paciencia.</p></div>
+      <div class="benefit rv" style="--d:.2s"><h3>Más tiempo para tu equipo</h3><p>Tu personal se dedica a lo que requiere trato humano.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sheet cream" id="faq">
+  <div class="wrap">
+    <div class="center rv"><span class="eyebrow">Preguntas frecuentes</span><h2>Lo que suelen preguntarnos</h2></div>
+    <div class="faq rv">
+      <details><summary>¿Qué es AUREplus?</summary><p>Una agencia de automatización especializada solo en joyerías. Creamos asistentes virtuales que hacen de recepcionista para tu joyería.</p></details>
+      <details><summary>¿El asistente intentará vender a toda costa?</summary><p>No. Está diseñado para acompañar, informar y generar confianza. La venta llega como consecuencia de una buena atención.</p></details>
+      <details><summary>¿Puedo ponerle el nombre que quiera?</summary><p>Sí. Puede llevar el nombre que elijas o ninguno, y hablará con el tono y la identidad de tu joyería.</p></details>
+      <details><summary>¿Qué información puede dar?</summary><p>La que tú le proporciones: tu catálogo, precios y disponibilidad. Lo que no sepa, no lo inventa: lo deriva a tu equipo.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="sheet dark cta" id="contacto">
+  <div class="wrap grid">
+    <div class="rv">
+      <span class="eyebrow">Empezar</span>
+      <h2>Prueba <span class="particle-word" id="pw-aureplus"><span class="pw-text">AUREplus</span><canvas class="pw-canvas" aria-hidden="true"></canvas></span><br>7 días gratis</h2>
+      <p class="lead">Demo de 7 días, totalmente gratuita y sin compromiso.</p>
+      <ol>
+        <li>Nos cuentas cómo es tu joyería y cómo hablas con tus clientes.</li>
+        <li>Diseñamos tu asistente con tu nombre, tono y catálogo.</li>
+        <li>Lo ponemos en marcha en los canales que elijas.</li>
+      </ol>
+    </div>
+    <form class="rv" style="--d:.15s" id="demo-form">
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
+      <label for="n">Nombre</label><input id="n" name="Nombre" required>
+      <label for="j">Nombre de tu joyería</label><input id="j" name="Joyería" required>
+      <label for="e">Email o teléfono</label><input id="e" name="Contacto" required>
+      <label for="c">Canal principal</label>
+      <select id="c" name="Canal principal"><option>WhatsApp</option><option>Instagram</option><option>Web</option><option>Todos</option></select>
+      <button class="btn btn-wine" type="submit">Prueba gratuita</button>
+      <p class="note" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="brand"><img src="img/wordmark-cream.png" alt="AUREplus"></div>
+    <div>© 2026 AUREplus</div>
+    <div><a href="#">Aviso legal</a><a href="#">Privacidad</a><a href="#">Cookies</a></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Menú móvil: se cierra al elegir una opción y anuncia su estado a lectores de pantalla.
+  var burger=document.getElementById('burger'), menu=document.getElementById('menu');
+  if(burger && menu){
+    function closeMenu(){ menu.classList.remove('open'); burger.setAttribute('aria-expanded','false'); burger.setAttribute('aria-label','Abrir menú'); }
+    function openMenu(){ menu.classList.add('open'); burger.setAttribute('aria-expanded','true'); burger.setAttribute('aria-label','Cerrar menú'); }
+    burger.addEventListener('click', function(){ menu.classList.contains('open') ? closeMenu() : openMenu(); });
+    menu.addEventListener('click', function(e){ if(e.target.tagName==='A') closeMenu(); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeMenu(); });
+  }
+
+  var rv=[].slice.call(document.querySelectorAll('.rv:not(.hero .rv)'));
+  if(!('IntersectionObserver' in window)){document.documentElement.classList.add('js-off');return;}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+  },{threshold:.15,rootMargin:'0px 0px -6% 0px'});
+  rv.forEach(function(el){io.observe(el)});
+
+  // Las tarjetas se hunden ligeramente cuando la siguiente se apila encima
+  var cards=[].slice.call(document.querySelectorAll('.pcard'));
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches, tick=false;
+  function update(){
+    tick=false;
+    cards.forEach(function(c,i){
+      var next=cards[i+1]; if(!next){return;}
+      var top=parseFloat(getComputedStyle(c).top);
+      var gap=next.getBoundingClientRect().top-top;
+      var p=Math.max(0,Math.min(1,1-gap/(c.offsetHeight+60)));
+      c.style.transform='scale('+(1-p*.06)+')';
+      c.style.filter='brightness('+(1-p*.12)+')';
+    });
+  }
+  if(!reduce){
+    addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(update);}},{passive:true});
+    addEventListener('resize',update);update();
+  }
+})();
+</script>
+<script>
+// Vídeos de la portada: se reproducen en bucle, uno tras otro, con fundido entre ellos.
+// Para cambiarlos, sustituye los archivos de img/videos/ o edita esta lista.
+var HERO_CLIPS=['img/videos/clip1.mp4','img/videos/clip2.mp4','img/videos/clip3.mp4'];
+var HERO_FALLBACK=['img/hero.webm'];   // se usa solo si no existe ninguno de los anteriores
+var HERO_MAX_SECONDS=6;                // cada clip se muestra como máximo este tiempo
+(function(){
+  var box=document.querySelector('.hero-videos'); if(!box||matchMedia('(prefers-reduced-motion:reduce)').matches){return;}
+  var vids=[].slice.call(box.querySelectorAll('video'));
+  function probe(src){return new Promise(function(ok){
+    var t=document.createElement('video'),done=false;
+    function end(v){if(!done){done=true;t.removeAttribute('src');t.load();ok(v);}}
+    t.preload='metadata';t.muted=true;
+    t.onloadedmetadata=function(){end(true)};t.onerror=function(){end(false)};
+    setTimeout(function(){end(false)},4000);t.src=src;
+  });}
+  Promise.all(HERO_CLIPS.map(probe)).then(function(r){
+    var list=HERO_CLIPS.filter(function(_,i){return r[i]});
+    return list.length?list:HERO_FALLBACK;
+  }).then(function(list){
+    var idx=0,cur=0;
+    function show(fails){
+      fails=fails||0;
+      var v=vids[cur],o=vids[1-cur];
+      v.onended=null;v.ontimeupdate=null;v.onerror=null;
+      v.src=list[idx];v.loop=(list.length===1);v.currentTime=0;
+      var p=v.play(); if(p&&p.catch){p.catch(function(){})}
+      // Si este clip falla antes de arrancar, pasa al siguiente en vez de dejar la pantalla congelada.
+      // Si fallan todos, se deja de intentar y se ve la foto de fondo de .hero-videos.
+      v.onerror=function(){
+        if(fails+1>=list.length){return;}
+        idx=(idx+1)%list.length;cur=1-cur;show(fails+1);
+      };
+      v.onplaying=function(){
+        v.onplaying=null;v.classList.add('on');o.classList.remove('on');
+        if(list.length>1){
+          var next=function(){v.onended=v.ontimeupdate=null;idx=(idx+1)%list.length;cur=1-cur;show();};
+          v.onended=next;
+          v.ontimeupdate=function(){if(v.currentTime>=HERO_MAX_SECONDS){next();}};
+          // Si el clip ya en pantalla falla a mitad de reproducción, también se recupera pasando al siguiente.
+          v.onerror=next;
+        }
+      };
+    }
+    show();
+  });
+})();
+</script>
+<script>
+// Las solicitudes de demo se reciben en el correo activado en FormSubmit para este dominio.
+// Este identificador sustituye al email para que no quede expuesto en el código fuente.
+// Si en el futuro cambias de dominio o de correo, FormSubmit pedirá reactivar y te dará uno nuevo.
+var DEMO_FORM_ID='5e84976086e730819fda9e2ed12bf001';
+(function(){
+  var f=document.getElementById('demo-form'); if(!f){return;}
+  var note=f.querySelector('.note'), btn=f.querySelector('button');
+  f.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var data=new FormData(f);
+    data.append('_subject','Nueva solicitud de demo gratuita - AUREplus');
+    data.append('_template','table');
+    btn.disabled=true; note.className='note'; note.textContent='Enviando...';
+    var ctrl=new AbortController();
+    var to=setTimeout(function(){ ctrl.abort(); },10000);
+    fetch('https://formsubmit.co/ajax/'+DEMO_FORM_ID,{method:'POST',headers:{'Accept':'application/json'},body:data,signal:ctrl.signal})
+      .then(function(r){return r.json().then(function(j){return {ok:r.ok&&String(j.success)!=='false',j:j};});})
+      .then(function(res){
+        clearTimeout(to);
+        if(res.ok){note.className='note ok';note.textContent='Solicitud enviada. Gracias por tu interés.';f.reset();}
+        else{note.className='note error';note.textContent='No hemos podido enviar tu solicitud. Inténtalo de nuevo en unos minutos.';}
+      })
+      .catch(function(){clearTimeout(to);note.className='note error';note.textContent='No hemos podido enviar tu solicitud. Comprueba tu conexión e inténtalo de nuevo.';})
+      .then(function(){btn.disabled=false;});
+  });
+})();
+</script>
+<script>
+// Efecto "ParticleText": la palabra AUREplus se forma con partículas que se dispersan
+// y se recomponen, y reaccionan al pasar el ratón por encima. Si el sistema tiene
+// activado "reducir movimiento", la palabra se queda como texto dorado normal.
+(function(){
+  var wrap = document.getElementById('pw-aureplus');
+  if(!wrap) return;
+  var textEl = wrap.querySelector('.pw-text');
+  var canvas = wrap.querySelector('.pw-canvas');
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches || !canvas.getContext) return;
+
+  var ctx = canvas.getContext('2d');
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var particles = [];
+  var pointer = {x:-9999, y:-9999, active:false};
+  var revealed = false, raf = null;
+  var padX = 30, padY = 36; // aire alrededor del texto para que las partículas dispersas quepan
+
+  function build(){
+    var rect = textEl.getBoundingClientRect();
+    var w = Math.ceil(rect.width) + padX*2, h = Math.ceil(rect.height) + padY*2;
+    if(w < 10 || h < 10) return false;
+
+    canvas.style.width = w+'px'; canvas.style.height = h+'px';
+    canvas.width = Math.round(w*dpr); canvas.height = Math.round(h*dpr);
+
+    var cs = getComputedStyle(textEl);
+    var off = document.createElement('canvas');
+    off.width = canvas.width; off.height = canvas.height;
+    var octx = off.getContext('2d');
+    octx.scale(dpr, dpr);
+    octx.font = cs.fontStyle+' '+cs.fontWeight+' '+parseFloat(cs.fontSize)+'px '+cs.fontFamily;
+    octx.textBaseline = 'middle'; octx.textAlign = 'center';
+    var ty0 = h/2 + parseFloat(cs.fontSize)*0.03;
+    octx.lineWidth = 2.1; octx.strokeStyle = '#fff'; octx.lineJoin = 'round';
+    octx.strokeText(textEl.textContent, w/2, ty0); // solo el contorno: trazo fino, sin relleno
+    var img = octx.getImageData(0,0,off.width,off.height).data;
+
+    var step = Math.max(2, Math.round(2.8*dpr)), targets = [];
+    for(var y=0; y<off.height; y+=step){
+      for(var x=0; x<off.width; x+=step){
+        if(img[(y*off.width+x)*4+3] > 100) targets.push({x:x/dpr, y:y/dpr});
+      }
+    }
+    var old = particles;
+    particles = targets.map(function(t, i){
+      var p = old[i];
+      if(!p){
+        var ang = Math.random()*Math.PI*2, dist = 110 + Math.random()*190;
+        p = { x:w/2+Math.cos(ang)*dist, y:h/2+Math.sin(ang)*dist, vx:0, vy:0,
+              glow: Math.random() < 0.16, r: 0.75 + Math.random()*1.0, ph: Math.random()*Math.PI*2 };
+      }
+      p.tx = t.x; p.ty = t.y;
+      return p;
+    });
+    return true;
+  }
+
+  function frame(t){
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    var px = pointer.active ? pointer.x : null, py = pointer.active ? pointer.y : null;
+    for(var i=0;i<particles.length;i++){
+      var p = particles[i];
+      var tx = p.tx + Math.sin(t*0.001+p.ph)*1.1, ty = p.ty + Math.cos(t*0.0013+p.ph)*1.1;
+      if(px !== null){
+        var dx=p.x-px, dy=p.y-py, d2=dx*dx+dy*dy, R=46;
+        if(d2 < R*R){ var d=Math.sqrt(d2)||1, f=(1-d/R)*5.2; p.vx += (dx/d)*f; p.vy += (dy/d)*f; }
+      }
+      p.vx += (tx-p.x)*0.045; p.vy += (ty-p.y)*0.045;
+      p.vx *= 0.82; p.vy *= 0.82;
+      p.x += p.vx; p.y += p.vy;
+
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      if(p.glow){ ctx.fillStyle='#FFC600'; ctx.shadowColor='#FFC600'; ctx.shadowBlur=6; }
+      else { ctx.fillStyle='#F3E5C5'; ctx.shadowBlur=0; }
+      ctx.fill();
+    }
+    raf = requestAnimationFrame(frame);
+  }
+
+  function start(){
+    if(!build()) return;
+    textEl.style.opacity = '0'; canvas.style.opacity = '1';
+    if(!raf) raf = requestAnimationFrame(frame);
+  }
+  function pause(){ if(raf){ cancelAnimationFrame(raf); raf = null; } }
+
+  wrap.addEventListener('mousemove', function(e){
+    var r = canvas.getBoundingClientRect();
+    pointer.x = e.clientX - r.left; pointer.y = e.clientY - r.top; pointer.active = true;
+  });
+  wrap.addEventListener('mouseleave', function(){ pointer.active = false; });
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ revealed = true; start(); }
+      else if(revealed){ pause(); }
+    });
+  }, {threshold:.2});
+
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ io.observe(wrap); });
+  else io.observe(wrap);
+
+  var rt;
+  addEventListener('resize', function(){
+    clearTimeout(rt);
+    rt = setTimeout(function(){ if(revealed) build(); }, 200);
+  });
+})();
+</script>
+</body>
+</html>
