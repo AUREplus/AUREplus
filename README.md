@@ -14,4 +14,4 @@ Web de AUREplus, agencia de automatización especializada en joyerías. Creamos 
 
 ## Formulario de contacto
 
-El formulario de "Prueba gratuita" envía los datos mediante [FormSubmit](https://formsubmit.co). El identificador usado en `index.html` (`DEMO_FORM_ID`) está activado para el dominio con el que se probó originalmente; si cambias de dominio, FormSubmit puede pedir una reactivación y entregar un identificador nuevo.
+El formulario de "Prueba gratuita" envía los datos mediante [FormSubmit](https://formsubmit.co) al correo `contacto@aureplus.com`. La primera vez que alguien envíe el formulario tras un cambio de correo o dominio, FormSubmit manda un email de confirmación a esa dirección que hay que aprobar una única vez.

@@ -347,7 +347,7 @@ footer a{text-decoration:none;margin-left:18px}footer a:hover{color:var(--gold)}
 <footer>
   <div class="wrap">
     <div class="brand"><img src="img/wordmark-cream.png" alt="AUREplus"></div>
-    <div>© 2026 AUREplus</div>
+    <div>© 2026 AUREplus · <a href="mailto:contacto@aureplus.com">contacto@aureplus.com</a></div>
     <div><a href="#">Aviso legal</a><a href="#">Privacidad</a><a href="#">Cookies</a></div>
   </div>
 </footer>
@@ -440,10 +440,9 @@ var HERO_MAX_SECONDS=6;                // cada clip se muestra como máximo este
 })();
 </script>
 <script>
-// Las solicitudes de demo se reciben en el correo activado en FormSubmit para este dominio.
-// Este identificador sustituye al email para que no quede expuesto en el código fuente.
-// Si en el futuro cambias de dominio o de correo, FormSubmit pedirá reactivar y te dará uno nuevo.
-var DEMO_FORM_ID='5e84976086e730819fda9e2ed12bf001';
+// Las solicitudes de demo se reciben en contacto@aureplus.com (correo público del negocio).
+// La primera vez que alguien envíe el formulario, FormSubmit pedirá confirmar ese correo.
+var DEMO_FORM_ID='contacto@aureplus.com';
 (function(){
   var f=document.getElementById('demo-form'); if(!f){return;}
   var note=f.querySelector('.note'), btn=f.querySelector('button');
