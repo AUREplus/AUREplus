@@ -39,7 +39,6 @@ a{color:inherit}
 .sheet{position:relative;padding:110px 0;border-radius:44px 44px 0 0;margin-top:-44px}
 .sheet.light{background:var(--mist)}
 .sheet.cream{background:var(--cream)}
-.sheet.white{background:#fff}
 .sheet.dark{background:var(--wine);color:var(--cream)}
 .sheet.dark h2,.sheet.dark h3{color:var(--cream)}
 .sheet.dark .lead{color:#e0cfaa}
@@ -104,7 +103,7 @@ footer .brand img{height:30px}
 .stack-intro{position:sticky;top:120px}
 .stack-intro .lead{margin-top:10px}
 .deck{padding-bottom:20px}
-.pcard{position:sticky;top:calc(110px + var(--i)*26px);min-height:300px;border-radius:30px;padding:38px 40px;margin-bottom:60px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 -12px 40px rgba(75,0,2,.18);transform-origin:50% 0;will-change:transform}
+.pcard{position:sticky;top:calc(110px + var(--i)*26px);min-height:300px;max-width:620px;border-radius:30px;padding:38px 40px;margin-bottom:60px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 -12px 40px rgba(75,0,2,.18);transform-origin:50% 0;will-change:transform}
 .pcard .n{font-family:"Cormorant Garamond",serif;font-size:5.5rem;line-height:.8;font-weight:700;opacity:.9}
 .pcard h3{font-size:2.1rem;margin:0 0 8px}
 .pcard p{max-width:380px;font-size:1.02rem}
@@ -114,16 +113,6 @@ footer .brand img{height:30px}
 .pcard .n{color:var(--gold)}
 .sheet.cream .eyebrow{background:#fff}
 
-/* FUNCIONES: filas con línea, sin cajas */
-.rows{margin-top:54px;border-top:1px solid rgba(75,0,2,.18)}
-.row{display:grid;grid-template-columns:70px 1fr 1.3fr;gap:24px;align-items:baseline;padding:30px 8px;border-bottom:1px solid rgba(75,0,2,.18);transition:.4s var(--ease);position:relative}
-.row::before{content:"";position:absolute;inset:0;background:var(--cream);transform:scaleY(0);transform-origin:bottom;transition:transform .45s var(--ease);z-index:0}
-.row>*{position:relative;z-index:1}
-.row:hover::before{transform:scaleY(1)}
-.row:hover{padding-left:24px}
-.row .k{font-family:"Cormorant Garamond",serif;font-size:1.6rem;color:var(--wine-2);font-weight:700}
-.row h3{margin:0;font-size:1.9rem}
-.row p{color:var(--muted)}
 
 /* CANALES */
 .chgrid{display:grid;grid-template-columns:repeat(3,1fr);margin-top:56px}
@@ -180,9 +169,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
 .foot-contact svg{width:15px;height:15px;flex:none}
 footer a{text-decoration:none;margin-left:18px}footer a:hover{color:var(--gold)}
 
-@media (max-width:960px){
-  .row{grid-template-columns:50px 1fr}.row p{grid-column:2}
-}
 @media (max-width:700px){
   .hero{height:auto;min-height:calc(100svh - 70px);padding:40px 0 90px;background:linear-gradient(rgba(12,0,1,.62),rgba(12,0,1,.62)),url(img/hero.jpg) 60% center/cover no-repeat,#0c0001}
   .hero .grid,.stack-layout,.cta .grid{grid-template-columns:1fr;gap:36px}
@@ -194,7 +180,7 @@ footer a{text-decoration:none;margin-left:18px}footer a:hover{color:var(--gold)}
   .menu.open{display:flex}
   .chgrid,.bgrid{grid-template-columns:1fr}
   .ch,.ch+.ch{padding:10px 0 24px}
-  .pcard{padding:28px;min-height:260px}
+  .pcard{padding:28px;min-height:260px;max-width:none}
   .pcard .n{font-size:4rem}
   .tag{font-size:1.4rem;padding:10px 20px}
   footer a{margin:0 18px 0 0}
@@ -217,7 +203,6 @@ footer a{text-decoration:none;margin-left:18px}footer a:hover{color:var(--gold)}
       <button class="burger" id="burger" aria-label="Abrir menú" aria-controls="menu" aria-expanded="false">☰</button>
       <ul class="menu" id="menu">
         <li><a href="#como">Cómo funciona</a></li>
-        <li><a href="#funciones">Funciones</a></li>
         <li><a href="#canales">Canales</a></li>
                 <li><a href="#faq">Preguntas</a></li>
         <li><a class="btn btn-gold" href="#contacto">Prueba gratuita</a></li>
@@ -265,23 +250,8 @@ footer a{text-decoration:none;margin-left:18px}footer a:hover{color:var(--gold)}
       <article class="pcard" style="--i:1"><div class="n">02</div><div><h3>Escucha</h3><p>Identifica qué está buscando: tipo de joya, ocasión, material y presupuesto, antes de dar cualquier respuesta.</p></div></article>
       <article class="pcard" style="--i:2"><div class="n">03</div><div><h3>Muestra</h3><p>Selecciona y envía las piezas de tu catálogo que mejor encajan con lo que el cliente ha pedido, con fotos incluidas.</p></div></article>
       <article class="pcard" style="--i:3"><div class="n">04</div><div><h3>Acompaña</h3><p>Resuelve dudas sobre precio, garantía o disponibilidad con calma y precisión, sin presionar en ningún momento.</p></div></article>
-      <article class="pcard" style="--i:4"><div class="n">05</div><div><h3>Fideliza</h3><p>Guarda el historial de cada conversación y hace seguimiento tras la compra, para que la relación no termine ahí.</p></div></article>
-    </div>
-  </div>
-</section>
-
-<section class="sheet white" id="funciones">
-  <div class="wrap">
-    <div class="center rv">
-      <span class="eyebrow">Funciones</span>
-      <h2>Todo lo que hace tu recepcionista virtual</h2>
-      <p class="lead">Pensado exclusivamente para el día a día de una joyería.</p>
-    </div>
-    <div class="rows">
-      <div class="row rv"><span class="k">01</span><h3>Modelos y tipos de joya</h3><p>Responde dudas sobre los modelos y los tipos de joyas de tu catálogo.</p></div>
-      <div class="row rv"><span class="k">02</span><h3>Precios y disponibilidad</h3><p>Informa de los precios y de la disponibilidad de cada pieza.</p></div>
-      <div class="row rv"><span class="k">03</span><h3>Imágenes de las piezas</h3><p>Envía fotos directamente en la conversación.</p></div>
-      <div class="row rv"><span class="k">04</span><h3>Tu identidad</h3><p>Puede llevar el nombre que elijas, o ninguno, y habla con la voz de tu joyería.</p></div>
+      <article class="pcard" style="--i:4"><div class="n">05</div><div><h3>Invita a la tienda</h3><p>Cuando la conversación lo pide, propone una cita o una visita presencial para ver la pieza en persona.</p></div></article>
+      <article class="pcard" style="--i:5"><div class="n">06</div><div><h3>Fideliza</h3><p>Guarda el historial de cada conversación y hace seguimiento tras la compra, para que la relación no termine ahí.</p></div></article>
     </div>
   </div>
 </section>
@@ -588,5 +558,6 @@ var DEMO_FORM_ID='contacto@aureplus.com';
   });
 })();
 </script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
