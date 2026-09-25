@@ -50,7 +50,12 @@ a{color:inherit}
 
 /* NAV */
 header{position:sticky;top:0;z-index:100;background:rgba(75,0,2,.94);backdrop-filter:blur(8px)}
-nav{display:flex;align-items:center;justify-content:space-between;height:70px}
+/* La barra ocupa todo el ancho: logo pegado a la izquierda, enlaces en el centro y botón a la derecha */
+header .wrap{max-width:none}
+nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:70px}
+nav .brand{justify-self:start}
+.nav-cta{justify-self:end;color:var(--wine);padding:10px 20px;font-size:.95rem}
+.menu .m-only{display:none}
 .logo{font-family:"Cormorant Garamond",serif;font-size:1.8rem;font-weight:700;color:var(--cream);text-decoration:none;letter-spacing:.02em}
 .logo b{color:var(--gold)}
 .menu{display:flex;gap:28px;list-style:none;align-items:center}
@@ -70,8 +75,9 @@ nav{display:flex;align-items:center;justify-content:space-between;height:70px}
 .hv.on{opacity:1}
 .hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(12,0,1,.82) 0%,rgba(12,0,1,.5) 45%,rgba(12,0,1,.32) 100%),linear-gradient(0deg,rgba(12,0,1,.6) 0%,rgba(12,0,1,0) 30%)}
 .hero .grid,.hero .scroll-hint{z-index:2}
-.hero .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;position:relative;width:100%}
-.hero h1{color:var(--cream)}
+.hero .grid{display:grid;grid-template-columns:1.3fr .7fr;gap:56px;align-items:center;position:relative;width:100%}
+.hero h1{color:var(--cream);font-size:clamp(3rem,6.8vw,5.9rem)}
+.hero .eyebrow{font-size:.95rem;padding:8px 16px;margin-bottom:22px}
 .hero h1 em{font-style:normal;color:var(--gold)}
 .hero p{margin:22px 0 32px;font-size:1.15rem;max-width:520px;color:#e9d9b8}
 .hero .actions{display:flex;gap:14px;flex-wrap:wrap}
@@ -172,9 +178,14 @@ footer a{text-decoration:none;margin-left:18px}footer a:hover{color:var(--gold)}
 @media (max-width:700px){
   .hero{height:auto;min-height:calc(100svh - 70px);padding:40px 0 90px;background:linear-gradient(rgba(12,0,1,.62),rgba(12,0,1,.62)),url(img/hero.jpg) 60% center/cover no-repeat,#0c0001}
   .hero .grid,.stack-layout,.cta .grid{grid-template-columns:1fr;gap:36px}
+  .hero h1{font-size:clamp(2.3rem,10.5vw,3rem)}
+  .hero .eyebrow{font-size:.74rem;padding:6px 12px;letter-spacing:.1em}
   .seal{margin:0 auto}
   .stack-intro{position:static}
   .sheet{padding:80px 0;border-radius:30px 30px 0 0;margin-top:-30px}
+  nav{display:flex;justify-content:space-between}
+  .nav-cta{display:none}
+  .menu .m-only{display:list-item}
   .burger{display:block}
   .menu{display:none;position:absolute;top:70px;left:0;right:0;background:var(--wine);flex-direction:column;padding:20px;gap:18px}
   .menu.open{display:flex}
@@ -204,9 +215,10 @@ footer a{text-decoration:none;margin-left:18px}footer a:hover{color:var(--gold)}
       <ul class="menu" id="menu">
         <li><a href="#como">Cómo funciona</a></li>
         <li><a href="#canales">Canales</a></li>
-                <li><a href="#faq">Preguntas</a></li>
-        <li><a class="btn btn-gold" href="#contacto">Prueba gratuita</a></li>
+        <li><a href="#faq">Preguntas</a></li>
+        <li class="m-only"><a class="btn btn-gold" href="#contacto">Prueba gratuita</a></li>
       </ul>
+      <a class="btn btn-gold nav-cta" href="#contacto">Prueba gratuita</a>
     </nav>
   </div>
 </header>
@@ -219,7 +231,7 @@ footer a{text-decoration:none;margin-left:18px}footer a:hover{color:var(--gold)}
   </div>
   <div class="wrap grid">
     <div class="rv">
-      <span class="eyebrow">AUREplus · Software para joyerías</span>
+      <span class="eyebrow">AUREplus · Sistemas para joyerías</span>
       <h1>El lujo de estar <em>siempre disponible</em>.</h1>
     </div>
     <div class="seal rv" aria-label="AUREplus">
