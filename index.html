@@ -75,8 +75,10 @@ nav .brand{justify-self:start}
 .hv.on{opacity:1}
 .hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(12,0,1,.82) 0%,rgba(12,0,1,.5) 45%,rgba(12,0,1,.32) 100%),linear-gradient(0deg,rgba(12,0,1,.6) 0%,rgba(12,0,1,0) 30%)}
 .hero .grid,.hero .scroll-hint{z-index:2}
-.hero .grid{display:grid;grid-template-columns:1.3fr .7fr;gap:56px;align-items:center;position:relative;width:100%}
-.hero h1{color:var(--cream);font-size:clamp(3rem,6.8vw,5.9rem)}
+/* En pantallas anchas la portada usa todo el ancho: texto hacia la izquierda y sello a la derecha, con aire entre ambos */
+.hero .wrap{max-width:none;padding:0 clamp(32px,7vw,150px)}
+.hero .grid{display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(56px,6vw,120px);align-items:center;position:relative;width:100%}
+.hero h1{color:var(--cream);font-size:clamp(3rem,6.8vw,5.9rem);line-height:1.12}
 .hero .eyebrow{font-size:.95rem;padding:8px 16px;margin-bottom:22px}
 .hero h1 em{font-style:normal;color:var(--gold)}
 .hero p{margin:22px 0 32px;font-size:1.15rem;max-width:520px;color:#e9d9b8}
@@ -232,7 +234,7 @@ footer a{text-decoration:none;margin-left:18px}footer a:hover{color:var(--gold)}
   <div class="wrap grid">
     <div class="rv">
       <span class="eyebrow">AUREplus · Sistemas para joyerías</span>
-      <h1>El lujo de estar <em>siempre disponible</em>.</h1>
+      <h1>El lujo de estar<br><em>siempre disponible</em>.</h1>
     </div>
     <div class="seal rv" aria-label="AUREplus">
       <div class="ring"><img src="img/monogram-cream.png" alt="Monograma AUREplus"></div>
