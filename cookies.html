@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Política de cookies | AUREplus</title>
+<title data-i18n="cook.title">Política de cookies | AUREplus</title>
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/png" href="img/icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +18,13 @@ h1{font-size:clamp(2rem,4vw,2.8rem);margin-bottom:1.4rem}
 h2{font-size:1.4rem;margin:2.2rem 0 .6rem}
 a{color:inherit}
 header{background:var(--wine)}
-header .wrap{display:flex;align-items:center;height:70px}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:70px}
+/* Selector de idioma ES / EN */
+.lang-switch{display:inline-flex;border:1px solid rgba(243,229,197,.35);border-radius:99px;padding:3px}
+.lang-switch button{background:none;border:0;color:var(--cream);font:600 .78rem/1 Inter,system-ui,sans-serif;letter-spacing:.08em;padding:7px 11px;border-radius:99px;cursor:pointer}
+.lang-switch button:hover{color:var(--gold)}
+.lang-switch button[aria-pressed="true"]{background:var(--cream);color:var(--wine)}
+.lang-switch button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 header img{height:32px}
 .wrap{max-width:820px;margin:0 auto;padding:0 24px}
 main{padding:64px 0 100px}
@@ -31,19 +37,22 @@ footer a:hover{color:var(--gold)}
 </style>
 </head>
 <body>
-<header><div class="wrap"><a href="index.html"><img src="img/wordmark-cream.png" alt="AUREplus"></a></div></header>
+<header><div class="wrap"><a href="index.html"><img src="img/wordmark-cream.png" alt="AUREplus"></a>
+  <div class="lang-switch" role="group" aria-label="Idioma" data-i18n-attr="aria-label:lang.label" hidden><button type="button" data-lang="es" aria-pressed="true" lang="es">ES</button><button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button></div>
+</div></header>
 <main class="wrap">
-  <a class="back" href="index.html">&larr; Volver a la web</a>
-  <h1>Política de cookies</h1>
+  <a class="back" href="index.html" data-i18n="legal.back">&larr; Volver a la web</a>
+  <h1 data-i18n="cook.h1">Política de cookies</h1>
 
-  <p>Esta web no utiliza cookies de publicidad ni de seguimiento entre sitios. No instalamos ningún elemento que identifique a los visitantes ni que recopile información con fines comerciales.</p>
+  <p data-i18n="cook.p1">Esta web no utiliza cookies de publicidad ni de seguimiento entre sitios. No instalamos ningún elemento que identifique a los visitantes ni que recopile información con fines comerciales.</p>
 
-  <p>Utilizamos <strong>Vercel Web Analytics</strong> para conocer el número de visitas de forma anónima y agregada. Esta herramienta no usa cookies ni almacena datos personales, y no permite identificar a ningún visitante individual.</p>
+  <p data-i18n="cook.p2">Utilizamos <strong>Vercel Web Analytics</strong> para conocer el número de visitas de forma anónima y agregada. Esta herramienta no usa cookies ni almacena datos personales, y no permite identificar a ningún visitante individual.</p>
 
-  <p>Si en el futuro incorporamos otras herramientas que sí requieran cookies, actualizaremos esta política y solicitaremos tu consentimiento antes de activarlas.</p>
+  <p data-i18n="cook.p3">Si en el futuro incorporamos otras herramientas que sí requieran cookies, actualizaremos esta política y solicitaremos tu consentimiento antes de activarlas.</p>
 </main>
 <footer>
-  <div>© 2026 AUREplus · <a href="aviso-legal.html">Aviso legal</a><a href="privacidad.html">Privacidad</a><a href="cookies.html">Cookies</a></div>
+  <div>© 2026 AUREplus · <a href="aviso-legal.html" data-i18n="foot.legal">Aviso legal</a><a href="privacidad.html" data-i18n="foot.privacy">Privacidad</a><a href="cookies.html" data-i18n="foot.cookies">Cookies</a></div>
 </footer>
+<script src="lang.js"></script>
 </body>
 </html>

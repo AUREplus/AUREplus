@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Aviso legal | AUREplus</title>
+<title data-i18n="legal.title">Aviso legal | AUREplus</title>
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/png" href="img/icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +18,13 @@ h1{font-size:clamp(2rem,4vw,2.8rem);margin-bottom:1.4rem}
 h2{font-size:1.4rem;margin:2.2rem 0 .6rem}
 a{color:inherit}
 header{background:var(--wine)}
-header .wrap{display:flex;align-items:center;height:70px}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:70px}
+/* Selector de idioma ES / EN */
+.lang-switch{display:inline-flex;border:1px solid rgba(243,229,197,.35);border-radius:99px;padding:3px}
+.lang-switch button{background:none;border:0;color:var(--cream);font:600 .78rem/1 Inter,system-ui,sans-serif;letter-spacing:.08em;padding:7px 11px;border-radius:99px;cursor:pointer}
+.lang-switch button:hover{color:var(--gold)}
+.lang-switch button[aria-pressed="true"]{background:var(--cream);color:var(--wine)}
+.lang-switch button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 header img{height:32px}
 .wrap{max-width:820px;margin:0 auto;padding:0 24px}
 main{padding:64px 0 100px}
@@ -32,14 +38,16 @@ footer a:hover{color:var(--gold)}
 </style>
 </head>
 <body>
-<header><div class="wrap"><a href="index.html"><img src="img/wordmark-cream.png" alt="AUREplus"></a></div></header>
+<header><div class="wrap"><a href="index.html"><img src="img/wordmark-cream.png" alt="AUREplus"></a>
+  <div class="lang-switch" role="group" aria-label="Idioma" data-i18n-attr="aria-label:lang.label" hidden><button type="button" data-lang="es" aria-pressed="true" lang="es">ES</button><button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button></div>
+</div></header>
 <main class="wrap">
-  <a class="back" href="index.html">&larr; Volver a la web</a>
-  <h1>Aviso legal</h1>
-  <p>En cumplimiento de la Ley 34/2002, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se informa de los siguientes datos:</p>
+  <a class="back" href="index.html" data-i18n="legal.back">&larr; Volver a la web</a>
+  <h1 data-i18n="legal.h1">Aviso legal</h1>
+  <p data-i18n="legal.intro">En cumplimiento de la Ley 34/2002, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se informa de los siguientes datos:</p>
 
-  <h2>Titular</h2>
-  <p>
+  <h2 data-i18n="legal.ownerH">Titular</h2>
+  <p data-i18n="legal.owner">
     Elena Jiménez, operando bajo el nombre comercial <strong>AUREplus</strong><br>
     NIF: <span class="placeholder">[pendiente de completar]</span><br>
     Domicilio: <span class="placeholder">[pendiente de completar]</span>, Córdoba, España<br>
@@ -47,20 +55,21 @@ footer a:hover{color:var(--gold)}
     Actividad: servicios de automatización mediante asistentes virtuales para joyerías
   </p>
 
-  <h2>Objeto</h2>
-  <p>Este sitio web (aureplus.com) tiene como finalidad informar sobre los servicios de AUREplus y permitir a los usuarios solicitar una demostración gratuita.</p>
+  <h2 data-i18n="legal.purposeH">Objeto</h2>
+  <p data-i18n="legal.purpose">Este sitio web (aureplus.com) tiene como finalidad informar sobre los servicios de AUREplus y permitir a los usuarios solicitar una demostración gratuita.</p>
 
-  <h2>Propiedad intelectual</h2>
-  <p>Los contenidos de esta web (textos, diseño, logotipo, imágenes) son propiedad de Elena Jiménez o se usan con la debida autorización, y están protegidos por la normativa de propiedad intelectual. "AUREplus" es un nombre comercial actualmente no registrado como marca.</p>
+  <h2 data-i18n="legal.ipH">Propiedad intelectual</h2>
+  <p data-i18n="legal.ip">Los contenidos de esta web (textos, diseño, logotipo, imágenes) son propiedad de Elena Jiménez o se usan con la debida autorización, y están protegidos por la normativa de propiedad intelectual. "AUREplus" es un nombre comercial actualmente no registrado como marca.</p>
 
-  <h2>Condiciones de uso</h2>
-  <p>El acceso a esta web es gratuito. El usuario se compromete a hacer un uso adecuado de los contenidos y a no emplearlos para fines ilícitos.</p>
+  <h2 data-i18n="legal.useH">Condiciones de uso</h2>
+  <p data-i18n="legal.use">El acceso a esta web es gratuito. El usuario se compromete a hacer un uso adecuado de los contenidos y a no emplearlos para fines ilícitos.</p>
 
-  <h2>Legislación aplicable</h2>
-  <p>Este aviso legal se rige por la legislación española. Para cualquier controversia, las partes se someten a los juzgados y tribunales de Córdoba, salvo que la ley disponga otra cosa.</p>
+  <h2 data-i18n="legal.lawH">Legislación aplicable</h2>
+  <p data-i18n="legal.law">Este aviso legal se rige por la legislación española. Para cualquier controversia, las partes se someten a los juzgados y tribunales de Córdoba, salvo que la ley disponga otra cosa.</p>
 </main>
 <footer>
-  <div>© 2026 AUREplus · <a href="aviso-legal.html">Aviso legal</a><a href="privacidad.html">Privacidad</a><a href="cookies.html">Cookies</a></div>
+  <div>© 2026 AUREplus · <a href="aviso-legal.html" data-i18n="foot.legal">Aviso legal</a><a href="privacidad.html" data-i18n="foot.privacy">Privacidad</a><a href="cookies.html" data-i18n="foot.cookies">Cookies</a></div>
 </footer>
+<script src="lang.js"></script>
 </body>
 </html>
