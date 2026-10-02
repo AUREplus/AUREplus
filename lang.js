@@ -81,16 +81,11 @@
     'cta.s1': 'You tell us about your store and how you talk to your customers.',
     'cta.s2': 'We design your assistant with your name, tone and catalog.',
     'cta.s3': 'We launch it on the channels you choose.',
-    'form.name': 'Name',
-    'form.store': 'Your jewelry store’s name',
-    'form.contact': 'Email or phone',
-    'form.channel': 'Main channel',
-    'form.all': 'All',
-    'form.submit': 'Free trial',
-    'form.sending': 'Sending...',
-    'form.ok': 'Request sent. Thank you for your interest.',
-    'form.fail': 'We couldn’t send your request. Please try again in a few minutes.',
-    'form.offline': 'We couldn’t send your request. Check your connection and try again.',
+    'book.title': 'Book your demo',
+    'book.text': 'Pick the day and time that suit you best and we’ll show you how the assistant would work in your store.',
+    'book.open': 'See available times',
+    'book.note': 'The calendar is provided by Calendly, which uses its own cookies once opened.',
+    'book.newtab': 'Open the calendar in a new tab',
 
     // Aviso legal
     'legal.title': 'Legal notice | AUREplus',
@@ -113,15 +108,15 @@
     'priv.ctrlH': 'Data controller',
     'priv.owner': 'Elena Jiménez, trading as AUREplus<br>\n    Tax ID (NIF): <span class="placeholder">[to be completed]</span><br>\n    Address: <span class="placeholder">[to be completed]</span>, Córdoba, Spain<br>\n    Contact email: <a href="mailto:contacto@aureplus.com">contacto@aureplus.com</a>',
     'priv.dataH': 'Data we collect',
-    'priv.data': 'Through the “Free trial” form we collect: your name, your jewelry store’s name, a contact email or phone number, and your preferred communication channel.',
+    'priv.data': 'When you book a demo through the calendar on this website, we receive the details you enter in Calendly: your name, your email and any answers you add when booking.',
     'priv.purposeH': 'Purpose',
-    'priv.purpose': 'To handle your free demo request and contact you to set up the service.',
+    'priv.purpose': 'To manage your free demo booking and contact you to set up the service.',
     'priv.basisH': 'Legal basis',
-    'priv.basis': 'The consent you give by voluntarily submitting the form.',
+    'priv.basis': 'The consent you give by voluntarily booking the demo.',
     'priv.keepH': 'Retention',
     'priv.keep': 'Your data will be kept for as long as there is a business relationship or until you ask for it to be deleted.',
     'priv.thirdH': 'Recipients and third parties',
-    'priv.third': 'We use <strong>FormSubmit</strong> (form submission processor) and <strong>Vercel</strong> (web hosting) to run this website. We do not share your data with third parties for commercial purposes.',
+    'priv.third': 'We use <strong>Calendly</strong> (appointment booking, a company based in the United States; see its <a href="https://calendly.com/privacy" target="_blank" rel="noopener">privacy policy</a>) and <strong>Vercel</strong> (web hosting) to run this website. We do not share your data with third parties for commercial purposes.',
     'priv.rightsH': 'Your rights',
     'priv.rights': 'You can exercise your rights of access, rectification, erasure, objection, restriction and portability by writing to <a href="mailto:contacto@aureplus.com">contacto@aureplus.com</a>. If you believe your data is not being handled properly, you can file a complaint with the Spanish Data Protection Agency (<a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>).',
 
@@ -130,7 +125,8 @@
     'cook.h1': 'Cookie policy',
     'cook.p1': 'This website does not use advertising or cross-site tracking cookies. We do not install anything that identifies visitors or collects information for commercial purposes.',
     'cook.p2': 'We use <strong>Vercel Web Analytics</strong> to count visits anonymously and in aggregate. This tool does not use cookies or store personal data, and it cannot identify any individual visitor.',
-    'cook.p3': 'If we add other tools that do require cookies in the future, we will update this policy and ask for your consent before enabling them.'
+    'cook.p4': 'The demo booking calendar is provided by <strong>Calendly</strong>. It only loads when you click “See available times”, and from then on Calendly may set its own cookies, both those needed for the calendar to work and analytics ones. You can find more in its <a href="https://calendly.com/privacy" target="_blank" rel="noopener">privacy policy</a>.',
+    'cook.p3':'If we add other tools that do require cookies in the future, we will update this policy and ask for your consent before enabling them.'
   };
 
   var KEY = 'aureplus-lang';

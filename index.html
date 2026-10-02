@@ -162,15 +162,17 @@ details p{margin-top:12px;color:var(--muted);animation:fade .5s var(--ease)}
 .cta ol{margin-top:30px;list-style:none;counter-reset:c}
 .cta li{counter-increment:c;display:flex;gap:14px;margin-bottom:20px;color:#e9d9b8}
 .cta li::before{content:counter(c);flex:none;width:34px;height:34px;border-radius:50%;background:var(--gold);color:var(--wine);display:grid;place-items:center;font-weight:700}
-form{background:var(--mist);border-radius:26px;padding:32px;color:var(--ink)}
-label{display:block;font-size:.85rem;font-weight:600;margin:0 0 6px;color:var(--wine)}
-input,select{width:100%;padding:12px 14px;border:1px solid #d9d6cc;border-radius:10px;font:inherit;background:#fff;margin-bottom:16px}
-input:focus,select:focus{outline:2px solid var(--gold);border-color:var(--gold)}
-form .btn{width:100%}
+/* Reserva de demo con Calendly: tarjeta con botón; el calendario se carga al pulsarlo */
+.booking{background:var(--mist);border-radius:26px;color:var(--ink);overflow:hidden}
+.booking-intro{padding:40px 36px;text-align:center}
+.sheet .booking-intro h3{color:var(--wine);font-size:2rem;margin-bottom:10px}
+.booking-intro p{color:var(--muted);margin-bottom:26px}
+.booking-intro .btn{width:100%}
 .note{font-size:.8rem;color:var(--muted);margin-top:10px;text-align:center}
-.note.ok{color:#2f6b2f;font-weight:600}
-.note.error{color:var(--wine-2);font-weight:600}
-.btn:disabled{opacity:.55;cursor:not-allowed}
+.booking-intro .note{margin:14px 0 0}
+.book-link{color:var(--wine);font-weight:600}
+.booking-frame{height:700px;min-width:300px}
+.booking-frame iframe{display:block}
 
 /* Palabra "AUREplus" animada con partículas, en el titular de contacto */
 .particle-word{position:relative;display:inline-block;font-size:1.5em}
@@ -333,16 +335,16 @@ footer a{text-decoration:none;margin-left:18px}footer a:hover{color:var(--gold)}
         <li data-i18n="cta.s3">Lo ponemos en marcha en los canales que elijas.</li>
       </ol>
     </div>
-    <form class="rv" style="--d:.15s" id="demo-form">
-      <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
-      <label for="n" data-i18n="form.name">Nombre</label><input id="n" name="Nombre" required>
-      <label for="j" data-i18n="form.store">Nombre de tu joyería</label><input id="j" name="Joyería" required>
-      <label for="e" data-i18n="form.contact">Email o teléfono</label><input id="e" name="Contacto" required>
-      <label for="c" data-i18n="form.channel">Canal principal</label>
-      <select id="c" name="Canal principal"><option value="WhatsApp">WhatsApp</option><option value="Instagram">Instagram</option><option value="Web">Web</option><option value="Todos" data-i18n="form.all">Todos</option></select>
-      <button class="btn btn-wine" type="submit" data-i18n="form.submit">Prueba gratuita</button>
-      <p class="note" role="status" aria-live="polite"></p>
-    </form>
+    <div class="booking rv" style="--d:.15s" id="booking">
+      <div class="booking-intro" id="book-intro">
+        <h3 data-i18n="book.title">Reserva tu demo</h3>
+        <p data-i18n="book.text">Elige el día y la hora que mejor te vengan y te contamos cómo funcionaría el asistente en tu joyería.</p>
+        <button class="btn btn-wine" type="button" id="book-open" data-i18n="book.open">Ver horarios disponibles</button>
+        <p class="note" data-i18n="book.note">El calendario lo ofrece Calendly, que usa sus propias cookies al abrirlo.</p>
+        <p class="note"><a class="book-link" id="book-link" href="#" target="_blank" rel="noopener" data-i18n="book.newtab">Abrir el calendario en una pestaña nueva</a></p>
+      </div>
+      <div class="booking-frame" id="book-frame" hidden></div>
+    </div>
   </div>
 </section>
 </main>
@@ -452,30 +454,42 @@ var HERO_MAX_SECONDS=6;                // cada clip se muestra como máximo este
 })();
 </script>
 <script>
-// Las solicitudes de demo se reciben en contacto@aureplus.com (correo público del negocio).
-// La primera vez que alguien envíe el formulario, FormSubmit pedirá confirmar ese correo.
-var DEMO_FORM_ID='contacto@aureplus.com';
+// Reserva de demo con Calendly. Pon aquí el enlace de tu evento (Calendly → evento → "Copy link").
+// Si tienes un evento en inglés, pon su enlace en "en"; si lo dejas vacío, se usa el de español.
+var CALENDLY_URL={
+  es:'https://calendly.com/contacto-aureplus/30min',
+  en:''
+};
 (function(){
-  var f=document.getElementById('demo-form'); if(!f){return;}
-  var note=f.querySelector('.note'), btn=f.querySelector('button');
-  f.addEventListener('submit',function(ev){
-    ev.preventDefault();
-    var data=new FormData(f);
-    data.append('_subject','Nueva solicitud de demo gratuita - AUREplus');
-    data.append('_template','table');
-    data.append('Idioma de la web',document.documentElement.lang==='en'?'Inglés':'Español');
-    btn.disabled=true; note.className='note'; note.textContent=aureT('form.sending','Enviando...');
-    var ctrl=new AbortController();
-    var to=setTimeout(function(){ ctrl.abort(); },10000);
-    fetch('https://formsubmit.co/ajax/'+DEMO_FORM_ID,{method:'POST',headers:{'Accept':'application/json'},body:data,signal:ctrl.signal})
-      .then(function(r){return r.json().then(function(j){return {ok:r.ok&&String(j.success)!=='false',j:j};});})
-      .then(function(res){
-        clearTimeout(to);
-        if(res.ok){note.className='note ok';note.textContent=aureT('form.ok','Solicitud enviada. Gracias por tu interés.');f.reset();}
-        else{note.className='note error';note.textContent=aureT('form.fail','No hemos podido enviar tu solicitud. Inténtalo de nuevo en unos minutos.');}
-      })
-      .catch(function(){clearTimeout(to);note.className='note error';note.textContent=aureT('form.offline','No hemos podido enviar tu solicitud. Comprueba tu conexión e inténtalo de nuevo.');})
-      .then(function(){btn.disabled=false;});
+  var open=document.getElementById('book-open'), intro=document.getElementById('book-intro'),
+      frame=document.getElementById('book-frame'), link=document.getElementById('book-link');
+  if(!open||!frame){return;}
+  // Colores de la marca en el calendario (Calendly solo los aplica en sus planes de pago).
+  function url(){
+    var base=(document.documentElement.lang==='en'&&CALENDLY_URL.en)||CALENDLY_URL.es;
+    return base+(base.indexOf('?')<0?'?':'&')+'hide_gdpr_banner=1&background_color=f6f7f9&text_color=2a0a0b&primary_color=4b0002';
+  }
+  function syncLink(){ link.href=url(); }
+  syncLink();
+  document.addEventListener('langchange',function(){
+    syncLink();
+    if(!frame.hidden&&window.Calendly){ show(); }  // si ya está abierto, recarga el calendario en el otro idioma
+  });
+  function show(){
+    frame.innerHTML='';
+    window.Calendly.initInlineWidget({url:url(),parentElement:frame});
+  }
+  var loading=false;
+  open.addEventListener('click',function(){
+    if(loading){return;} loading=true;
+    intro.hidden=true; frame.hidden=false;
+    if(window.Calendly){ show(); return; }
+    var s=document.createElement('script');
+    s.src='https://assets.calendly.com/assets/external/widget.js'; s.async=true;
+    s.onload=show;
+    // Si Calendly no carga (bloqueador, sin conexión), se vuelve a la tarjeta y se ofrece abrirlo en otra pestaña.
+    s.onerror=function(){ loading=false; frame.hidden=true; intro.hidden=false; window.open(url(),'_blank','noopener'); };
+    document.head.appendChild(s);
   });
 })();
 </script>
