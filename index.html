@@ -171,8 +171,17 @@ details p{margin-top:12px;color:var(--muted);animation:fade .5s var(--ease)}
 .note{font-size:.8rem;color:var(--muted);margin-top:10px;text-align:center}
 .booking-intro .note{margin:14px 0 0}
 .book-link{color:var(--wine);font-weight:600}
-.booking-frame{height:700px;min-width:300px}
-.booking-frame iframe{display:block}
+.booking-frame{position:relative;height:700px;min-width:300px;animation:fade .45s var(--ease)}
+.booking-frame iframe{display:block;width:100%;height:100%;border:0;opacity:0;transition:opacity .6s var(--ease)}
+.booking-frame.ready iframe{opacity:1}
+/* Mientras carga Calendly: tres puntos dorados y un texto, que se desvanecen al aparecer el calendario */
+.book-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:var(--muted);font-size:.9rem;text-align:center;padding:24px;transition:opacity .4s var(--ease)}
+.booking-frame.ready .book-loading{opacity:0;pointer-events:none}
+.book-dots{display:flex;gap:8px}
+.book-dots span{width:10px;height:10px;border-radius:50%;background:var(--gold);animation:bdot 1.1s ease-in-out infinite}
+.book-dots span:nth-child(2){animation-delay:.15s}.book-dots span:nth-child(3){animation-delay:.3s}
+@keyframes bdot{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
+.book-loading .book-link{font-size:.8rem}
 
 /* Palabra "AUREplus" animada con partículas, en el titular de contacto */
 .particle-word{position:relative;display:inline-block;font-size:1.5em}
@@ -337,7 +346,7 @@ footer a{text-decoration:none;margin-left:18px}footer a:hover{color:var(--gold)}
     </div>
     <div class="booking rv" style="--d:.15s" id="booking">
       <div class="booking-intro" id="book-intro">
-        <h3 data-i18n="book.title">Reserva tu demo</h3>
+        <h3 data-i18n="book.title">Hable con uno de nuestros expertos</h3>
         <p data-i18n="book.text">Elige el día y la hora que mejor te vengan y te contamos cómo funcionaría el asistente en tu joyería.</p>
         <button class="btn btn-wine" type="button" id="book-open" data-i18n="book.open">Ver horarios disponibles</button>
         <p class="note" data-i18n="book.note">El calendario lo ofrece Calendly, que usa sus propias cookies al abrirlo.</p>
@@ -465,31 +474,61 @@ var CALENDLY_URL={
       frame=document.getElementById('book-frame'), link=document.getElementById('book-link');
   if(!open||!frame){return;}
   // Colores de la marca en el calendario (Calendly solo los aplica en sus planes de pago).
-  function url(){
+  function url(embed){
     var base=(document.documentElement.lang==='en'&&CALENDLY_URL.en)||CALENDLY_URL.es;
-    return base+(base.indexOf('?')<0?'?':'&')+'hide_gdpr_banner=1&background_color=f6f7f9&text_color=2a0a0b&primary_color=4b0002';
+    var q='hide_gdpr_banner=1&background_color=f6f7f9&text_color=2a0a0b&primary_color=4b0002';
+    if(embed){ q+='&embed_type=Inline&embed_domain='+encodeURIComponent(location.host); }
+    return base+(base.indexOf('?')<0?'?':'&')+q;
   }
-  function syncLink(){ link.href=url(); }
+  function syncLink(){ link.href=url(false); }
   syncLink();
+
+  // Adelanta la conexión con Calendly cuando el visitante se acerca a esta sección o va a pulsar el botón.
+  // Solo abre la conexión: no descarga la página de Calendly ni instala cookies.
+  var warmed=false;
+  function warm(){
+    if(warmed){return;} warmed=true;
+    ['https://calendly.com','https://assets.calendly.com'].forEach(function(h){
+      var l=document.createElement('link'); l.rel='preconnect'; l.href=h; document.head.appendChild(l);
+    });
+  }
+  if('IntersectionObserver' in window){
+    var near=new IntersectionObserver(function(es){ if(es[0].isIntersecting){ warm(); near.disconnect(); } },{rootMargin:'800px 0px'});
+    near.observe(open);
+  }
+  open.addEventListener('pointerenter',warm);
+  open.addEventListener('touchstart',warm,{passive:true});
+  open.addEventListener('focus',warm);
+
+  // El calendario se inserta directamente (sin el script intermedio de Calendly) y aparece con un fundido
+  // cuando Calendly avisa de que está listo; si no avisa, se muestra igualmente al poco de cargar.
+  var timer;
+  function ready(){ clearTimeout(timer); frame.classList.add('ready'); }
+  function show(){
+    clearTimeout(timer);
+    frame.classList.remove('ready');
+    frame.innerHTML='<div class="book-loading" role="status"><div class="book-dots" aria-hidden="true"><span></span><span></span><span></span></div>'
+      +'<span>'+aureT('book.loading','Cargando el calendario…')+'</span>'
+      +'<a class="book-link" href="'+url(false)+'" target="_blank" rel="noopener">'+aureT('book.slow','¿No carga? Ábrelo en una pestaña nueva')+'</a></div>';
+    var f=document.createElement('iframe');
+    f.src=url(true);
+    f.title=aureT('book.iframe','Calendario para reservar una llamada');
+    f.onload=function(){ clearTimeout(timer); timer=setTimeout(ready,2500); };
+    frame.appendChild(f);
+    timer=setTimeout(ready,9000);
+  }
+  addEventListener('message',function(e){
+    if(e.origin!=='https://calendly.com'||!e.data||typeof e.data.event!=='string'){return;}
+    if(/^calendly\.(event_type_viewed|profile_page_viewed|page_height)$/.test(e.data.event)){ ready(); }
+  });
   document.addEventListener('langchange',function(){
     syncLink();
-    if(!frame.hidden&&window.Calendly){ show(); }  // si ya está abierto, recarga el calendario en el otro idioma
+    if(!frame.hidden){ show(); }  // si ya está abierto, recarga el calendario en el otro idioma
   });
-  function show(){
-    frame.innerHTML='';
-    window.Calendly.initInlineWidget({url:url(),parentElement:frame});
-  }
-  var loading=false;
   open.addEventListener('click',function(){
-    if(loading){return;} loading=true;
+    warm();
     intro.hidden=true; frame.hidden=false;
-    if(window.Calendly){ show(); return; }
-    var s=document.createElement('script');
-    s.src='https://assets.calendly.com/assets/external/widget.js'; s.async=true;
-    s.onload=show;
-    // Si Calendly no carga (bloqueador, sin conexión), se vuelve a la tarjeta y se ofrece abrirlo en otra pestaña.
-    s.onerror=function(){ loading=false; frame.hidden=true; intro.hidden=false; window.open(url(),'_blank','noopener'); };
-    document.head.appendChild(s);
+    show();
   });
 })();
 </script>
