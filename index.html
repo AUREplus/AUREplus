@@ -188,6 +188,113 @@ footer .brand img{height:30px}
 .benefit{padding-top:20px;border-top:3px solid var(--wine)}
 .benefit p{color:#5a4446}
 
+/* DISEÑO WEB: comparador antes / después.
+   Dos webs de ejemplo superpuestas (una antigua y otra moderna) de una joyería inventada.
+   La capa "antes" se recorta hasta la barra (--pos) y al arrastrarla se ve cómo cambia de una a otra.
+   Todo el contenido se escala con el ancho del comparador (unidades cqw), así se ve igual en cualquier pantalla. */
+.web-intro{max-width:760px;margin:0 auto 46px}
+.web-intro .lead{margin:0 auto}
+/* El comparador nunca es más alto que la pantalla: se estrecha lo necesario para verse entero */
+.ba-marco{width:min(100%,calc((100svh - 190px) * 1.6));margin:0 auto}
+.ba{--pos:50%;container-type:inline-size;container-name:ba;position:relative;aspect-ratio:16/10;width:100%;overflow:hidden;border-radius:18px;background:#111;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:ew-resize;box-shadow:0 40px 80px -40px rgba(0,0,0,.8),0 0 0 1px rgba(243,229,197,.12)}
+.ba-capa{position:absolute;inset:0;font-size:1.05cqw;line-height:1.35;display:flex;flex-direction:column;overflow:hidden}
+.ba-antes{clip-path:inset(0 calc(100% - var(--pos)) 0 0);z-index:1}
+.ba img{pointer-events:none;-webkit-user-drag:none}
+.ba-etq{position:absolute;top:auto;bottom:16px;z-index:3;padding:.4em 1em;border-radius:99px;font:600 .8rem/1.2 Inter,system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;pointer-events:none}
+.ba-etq-antes{left:16px;background:#2a2a2a;color:#fff}
+.ba-etq-despues{right:16px;background:var(--gold);color:var(--wine)}
+.ba-etq{transition:opacity .3s ease}
+.ba.sin-antes .ba-etq-antes,.ba.sin-despues .ba-etq-despues{opacity:0}
+.ba input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;pointer-events:none}
+.ba input:focus-visible ~ .ba-asa .ba-pomo{outline:3px solid var(--gold);outline-offset:3px}
+.ba-asa{position:absolute;top:0;bottom:0;left:var(--pos);z-index:2;width:3px;margin-left:-1.5px;background:var(--gold);pointer-events:none;box-shadow:0 0 18px rgba(255,198,0,.6)}
+.ba-pomo{position:absolute;top:50%;left:50%;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;background:var(--wine);border:3px solid var(--gold);display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.ba-pomo svg{width:26px;height:26px}
+.ba-pie{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:14px;color:#cdb98f;font-size:.9rem}
+.web-puntos{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:54px}
+.sheet .web-puntos h3{color:var(--gold);font-size:1.5rem}
+.web-puntos p{color:#e0cfaa}
+.web-cta{text-align:center;margin-top:46px}
+
+/* Navegador de cada capa */
+.nav-old{display:flex;flex-direction:column;background:#d4d0c8;border-bottom:2px solid #808080;font:1.1em/1.2 Tahoma,"MS Sans Serif",Arial,sans-serif;color:#000;flex:none}
+.nav-old .tit{background:linear-gradient(90deg,#0a246a,#a6caf0);color:#fff;font-weight:700;padding:.35em .6em;display:flex;justify-content:space-between}
+.nav-old .tit i{font-style:normal;letter-spacing:.3em}
+.nav-old .men{padding:.25em .6em;display:flex;gap:1.1em}
+.nav-old .dir{display:flex;align-items:center;gap:.5em;padding:.3em .6em .45em}
+.nav-old .dir b{font-weight:400;background:#fff;border:2px inset #fff;padding:.15em .5em;flex:1;color:#000}
+.nav-new{display:flex;align-items:center;gap:1em;background:#f3f1ee;padding:.7em 1.1em;border-bottom:1px solid #e3ded7;flex:none;font:1.05em/1 Inter,system-ui,sans-serif;color:#555}
+.nav-new .pts{display:flex;gap:.45em}.nav-new .pts i{width:.85em;height:.85em;border-radius:50%;background:#ff5f57}
+.nav-new .pts i:nth-child(2){background:#febc2e}.nav-new .pts i:nth-child(3){background:#28c840}
+.nav-new .dir{flex:1;max-width:38em;margin:0 auto;background:#fff;border-radius:99px;padding:.5em 1.1em;text-align:center;box-shadow:inset 0 0 0 1px #e6e1da}
+.nav-new .dir::before{content:"🔒 ";font-size:.85em}
+
+/* Web antigua */
+.old{flex:1;display:grid;grid-template-columns:19% 1fr;background:#00a2e8 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ctext x='8' y='28' font-size='22' fill='%23ffffff' fill-opacity='.18'%3E%E2%98%85%3C/text%3E%3C/svg%3E");font-family:"Comic Sans MS","Comic Sans",cursive;color:#000;gap:.8em;padding:.8em}
+.old-lat{background:#ffff99;border:3px ridge #c0c0c0;padding:.7em;display:flex;flex-direction:column;gap:.5em;font-family:"Times New Roman",serif;font-size:1.3em}
+.old-lat span{color:#0000ee;text-decoration:underline}
+.old-lat span::before{content:"► ";color:#ff0000;text-decoration:none;display:inline-block}
+.old-lat .cont{margin-top:auto;margin-bottom:2.6em;background:#000;color:#39ff14;font-family:"Courier New",monospace;text-align:center;padding:.3em;text-decoration:none;font-size:.85em}
+.old-lat .cont::before{content:none}
+.old-main{display:flex;flex-direction:column;gap:.7em;min-width:0}
+.old-tit{text-align:center;color:#ff0000;font-size:2.9em;font-weight:700;text-shadow:3px 3px 0 #ffff00,5px 5px 0 #000;line-height:1.05}
+.old-marq{background:#ff00ff;color:#ffff00;font-weight:700;overflow:hidden;white-space:nowrap;border:2px solid #000;font-size:1.25em;padding:.2em 0}
+.old-marq span{display:inline-block;padding-left:100%;animation:marq 9s linear infinite}
+@keyframes marq{to{transform:translateX(-100%)}}
+.old-cuerpo{display:grid;grid-template-columns:1.05fr 1fr;gap:.8em;flex:1;min-height:0}
+.old-foto{background:#fff;border:4px outset #c0c0c0;padding:.4em;display:flex;flex-direction:column;gap:.3em;min-height:0}
+.old-foto img{width:100%;flex:1;min-height:0;object-fit:cover;filter:blur(1.4px) saturate(1.9) contrast(1.35) brightness(1.1);image-rendering:pixelated}
+.old-foto small{font-family:"Times New Roman",serif;font-size:1em;text-align:center;color:#555}
+.old-txt{background:#fff;border:3px dashed #ff0000;padding:.7em;font-family:"Times New Roman",serif;font-size:1.25em;display:flex;flex-direction:column;gap:.5em}
+.old-txt .obra{background:repeating-linear-gradient(45deg,#ffcc00 0 .7em,#000 .7em 1.4em);color:#fff;text-align:center;font-weight:700;padding:.35em;text-shadow:0 0 3px #000,0 0 3px #000;font-family:Arial,sans-serif}
+.old-txt .tel{color:#0000ee;text-decoration:underline}
+.old-txt .blink{color:#ff0000;font-weight:700;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.old-txt .opt{margin-top:auto;font-size:.75em;color:#666;font-family:Arial,sans-serif}
+
+/* Web moderna */
+.neu{flex:1;display:flex;flex-direction:column;background:#0e0c0b;color:#efe6d6;font-family:Inter,system-ui,sans-serif;min-height:0}
+.neu-top{display:flex;align-items:center;justify-content:space-between;padding:1.5em 3.2em;font-size:1.05em}
+.neu-logo{font:500 2.1em/1 "Cormorant Garamond",Georgia,serif;letter-spacing:.06em}
+.neu-logo small{display:block;font:500 .3em/1 Inter,sans-serif;letter-spacing:.5em;color:#c9a96e;margin-top:.45em}
+.neu-links{display:flex;gap:2.2em;color:#bdb3a5}
+.neu-btn{border:1px solid #c9a96e;color:#e9cf9a;border-radius:99px;padding:.65em 1.5em}
+.neu-hero{flex:1;display:grid;grid-template-columns:1fr 1.05fr;gap:3em;align-items:center;padding:0 3.2em 2.4em;min-height:0}
+.neu-eye{font-size:1em;letter-spacing:.4em;text-transform:uppercase;color:#c9a96e}
+.neu-h{font:500 4.6em/1.02 "Cormorant Garamond",Georgia,serif;color:#f6eee1;margin:.25em 0 .3em}
+.neu-h em{font-style:italic;color:#e9cf9a}
+.neu-p{font-size:1.25em;color:#a99f92;max-width:26em;line-height:1.55}
+.neu-acc{display:flex;gap:1em;margin-top:1.8em;font-size:1.1em;font-weight:600}
+.neu-acc span{padding:.95em 1.8em;border-radius:99px}
+.neu-acc .a1{background:linear-gradient(135deg,#f0d9a8,#c9a96e);color:#1a1410}
+.neu-acc .a2{border:1px solid #4a423a;color:#efe6d6}
+.neu-conf{display:flex;gap:2em;margin-top:2.2em;font-size:.95em;color:#8d8377}
+.neu-conf b{color:#e9cf9a;font-weight:600}
+.neu-img{position:relative;height:100%;min-height:0;border-radius:1.6em;overflow:hidden;box-shadow:0 2em 4em -1.5em rgba(0,0,0,.8)}
+.neu-img img{width:100%;height:100%;object-fit:cover;object-position:60% 55%;filter:saturate(1.05) contrast(1.05)}
+.neu-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(14,12,11,.75))}
+.neu-prod{position:absolute;left:1.4em;bottom:1.4em;z-index:1;background:rgba(20,17,15,.72);backdrop-filter:blur(8px);border:1px solid rgba(233,207,154,.25);border-radius:1em;padding:.9em 1.2em;font-size:1em}
+.neu-prod b{display:block;font:500 1.45em/1.1 "Cormorant Garamond",serif;color:#f6eee1}
+.neu-prod span{color:#c9a96e}
+.neu-chat{position:absolute;right:1.4em;top:1.4em;z-index:1;background:#f6eee1;color:#1a1410;border-radius:1.1em 1.1em .2em 1.1em;padding:.8em 1.1em;font-size:1em;max-width:16em;box-shadow:0 1em 2em -.8em rgba(0,0,0,.6)}
+.neu-chat b{display:block;font-size:.85em;color:#8a6d3b;margin-bottom:.2em}
+
+/* Comparador en pantallas estrechas: formato vertical y las webs apiladas */
+@container ba (max-width:620px){
+  .ba-capa{font-size:2.1cqw}
+  .old{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .old-lat{flex-direction:row;flex-wrap:wrap;gap:.3em 1em;font-size:1.15em;padding:.5em}
+  .old-lat .cont{margin:0 0 0 auto}
+  .old-tit{font-size:2.6em}
+  .old-cuerpo{grid-template-columns:1fr;grid-template-rows:1fr auto}
+  .old-txt .opt{display:none}
+  .neu-top{padding:1.3em 1.6em}
+  .neu-links{display:none}
+  .neu-hero{grid-template-columns:1fr;grid-template-rows:auto 1fr;gap:1.6em;padding:0 1.6em 1.6em}
+  .neu-h{font-size:3.6em}
+  .neu-conf{display:none}
+}
+
 /* TIPOS */
 .tlist{margin-top:50px;display:flex;flex-wrap:wrap;gap:14px}
 .tag{font-family:"Cormorant Garamond",serif;font-size:1.8rem;font-weight:600;color:var(--wine);padding:12px 28px;border:2px solid var(--wine);border-radius:99px;transition:.3s var(--ease);cursor:default}
@@ -257,7 +364,10 @@ footer a{text-decoration:none;margin-left:18px}footer a:hover{color:var(--gold)}
   .burger{display:block}
   .menu{display:none;position:absolute;top:70px;left:0;right:0;background:var(--wine);flex-direction:column;padding:20px;gap:18px}
   .menu.open{display:flex}
-  .chgrid,.bgrid{grid-template-columns:1fr}
+  .chgrid,.bgrid,.web-puntos{grid-template-columns:1fr}
+  .ba{aspect-ratio:3/4;border-radius:14px}
+  .ba-marco{width:min(100%,calc((100svh - 190px) * .75))}
+  .web-puntos{gap:22px;margin-top:40px}
   .ch,.ch+.ch{padding:10px 0 24px}
   .pcard{padding:28px;min-height:260px;max-width:none}
   .pcard .n{font-size:4rem}
@@ -282,6 +392,7 @@ footer a{text-decoration:none;margin-left:18px}footer a:hover{color:var(--gold)}
       <ul class="menu" id="menu">
         <li><a href="#como" data-i18n="nav.how">Cómo funciona</a></li>
         <li><a href="#canales" data-i18n="nav.channels">Canales</a></li>
+        <li><a href="#webs" data-i18n="nav.webs">Diseño web</a></li>
         <li><a href="#faq" data-i18n="nav.faq">Preguntas</a></li>
         <li class="m-only"><a class="btn btn-gold" href="#contacto" data-i18n="nav.cta">Prueba gratuita</a></li>
       </ul>
@@ -364,6 +475,93 @@ footer a{text-decoration:none;margin-left:18px}footer a:hover{color:var(--gold)}
       <div class="benefit rv" style="--d:.1s"><h3 data-i18n="why.2t">Confianza y seguridad</h3><p data-i18n="why.2p">Comprar una joya es emocional y merece paciencia.</p></div>
       <div class="benefit rv" style="--d:.2s"><h3 data-i18n="why.3t">Más tiempo para tu equipo</h3><p data-i18n="why.3p">Tu personal se dedica a lo que requiere trato humano.</p></div>
     </div>
+  </div>
+</section>
+
+<section class="sheet dark" id="webs">
+  <div class="wrap">
+    <div class="web-intro center rv">
+      <span class="eyebrow" data-i18n="web.eyebrow">Diseño web</span>
+      <h2 data-i18n="web.title">Creamos tu web totalmente personalizada</h2>
+      <p class="lead" data-i18n="web.lead">Diseñamos la web de tu joyería a medida: moderna, rápida y pensada para que tus clientes se enamoren de tus piezas. Arrastra la línea y mira la diferencia.</p>
+    </div>
+
+    <div class="ba-marco rv" style="--d:.1s">
+      <div class="ba" id="ba">
+        <!-- Después: web moderna (debajo) -->
+        <div class="ba-capa ba-despues" aria-hidden="true">
+          <div class="nav-new"><span class="pts"><i></i><i></i><i></i></span><span class="dir">joyeriaaurora.es</span></div>
+          <div class="neu">
+            <div class="neu-top">
+              <span class="neu-logo">Aurora<small data-i18n="web.n.sub">JOYERÍA</small></span>
+              <span class="neu-links"><span data-i18n="web.n.l1">Colecciones</span><span data-i18n="web.n.l2">Novias</span><span data-i18n="web.n.l3">Taller</span><span data-i18n="web.n.l4">Nosotros</span></span>
+              <span class="neu-btn" data-i18n="web.n.btn">Reservar cita</span>
+            </div>
+            <div class="neu-hero">
+              <div>
+                <div class="neu-eye" data-i18n="web.n.eye">Nueva colección</div>
+                <div class="neu-h" data-i18n="web.n.h">Joyas que cuentan <em>tu historia</em></div>
+                <div class="neu-p" data-i18n="web.n.p">Piezas en oro de 18k y diamantes, diseñadas y terminadas a mano en nuestro taller.</div>
+                <div class="neu-acc"><span class="a1" data-i18n="web.n.a1">Ver colección</span><span class="a2" data-i18n="web.n.a2">Pedir cita</span></div>
+                <div class="neu-conf"><span><b>✦</b> <span data-i18n="web.n.c1">Taller propio</span></span><span><b>✦</b> <span data-i18n="web.n.c2">Garantía de por vida</span></span><span><b>✦</b> <span data-i18n="web.n.c3">Envío asegurado</span></span></div>
+              </div>
+              <div class="neu-img">
+                <img src="img/hero.jpg" alt="" loading="lazy">
+                <div class="neu-chat"><b data-i18n="web.n.chatn">Asistente · en línea</b><span data-i18n="web.n.chat">¡Hola! ¿Te ayudo a encontrar tu anillo?</span></div>
+                <div class="neu-prod"><b data-i18n="web.n.prod">Solitario Aurora</b><span data-i18n="web.n.price">Oro 18k · desde 1.250 €</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Antes: web antigua (encima, recortada hasta la barra) -->
+        <div class="ba-capa ba-antes" aria-hidden="true">
+          <div class="nav-old">
+            <div class="tit"><span>Joyeria Aurora - Microsoft Internet Explorer</span><i>_ □ ×</i></div>
+            <div class="men"><span>Archivo</span><span>Edición</span><span>Ver</span><span>Favoritos</span><span>Ayuda</span></div>
+            <div class="dir">Dirección <b>http://www.joyeria-aurora.es/index.htm</b></div>
+          </div>
+          <div class="old">
+            <div class="old-lat">
+              <span data-i18n="web.o.l1">Inicio</span><span data-i18n="web.o.l2">Quienes somos</span><span data-i18n="web.o.l3">Productos</span><span data-i18n="web.o.l4">Contacto</span><span data-i18n="web.o.l5">Libro de visitas</span>
+              <span class="cont" data-i18n="web.o.cont">Visitas: 000427</span>
+            </div>
+            <div class="old-main">
+              <div class="old-tit" data-i18n="web.o.tit">Bienvenidos a la web de JOYERIA AURORA!!!</div>
+              <div class="old-marq"><span data-i18n="web.o.marq">*** OFERTAS EN ORO 18K *** VISITE NUESTRA TIENDA *** ABIERTO DE LUNES A SABADO ***</span></div>
+              <div class="old-cuerpo">
+                <div class="old-foto"><img src="img/hero.jpg" alt="" loading="lazy"><small data-i18n="web.o.foto">foto_anillo2.jpg</small></div>
+                <div class="old-txt">
+                  <div class="obra" data-i18n="web.o.obra">PÁGINA EN CONSTRUCCIÓN</div>
+                  <span data-i18n="web.o.t1">Somos una joyeria con mucha experiencia. Tenemos anillos, pendientes, collares y mucho mas.</span>
+                  <span class="blink" data-i18n="web.o.blink">¡¡NUEVO!!</span>
+                  <span><span data-i18n="web.o.tel">Llamenos al</span> <span class="tel">957 00 00 00</span></span>
+                  <span class="opt" data-i18n="web.o.opt">Pagina optimizada para Internet Explorer 6 a 800x600</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <span class="ba-etq ba-etq-antes" data-i18n="web.antes">Antes</span>
+        <span class="ba-etq ba-etq-despues" data-i18n="web.despues">Con AUREplus</span>
+        <input type="range" min="0" max="100" value="50" step="1" aria-label="Mover para comparar una web anticuada con una web moderna" data-i18n-attr="aria-label:web.aria">
+        <div class="ba-asa"><div class="ba-pomo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FFC600" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg>
+        </div></div>
+      </div>
+      <div class="ba-pie">
+        <span data-i18n="web.pie1">Arrastra la línea para pasar de una web anticuada a una web actual.</span>
+        <span data-i18n="web.pie2">Ejemplo ilustrativo con una joyería inventada.</span>
+      </div>
+    </div>
+
+    <div class="web-puntos">
+      <div class="rv"><h3 data-i18n="web.p1t">Diseño a medida</h3><p data-i18n="web.p1p">Con tu logo, tus colores y tus fotos. Nada de plantillas iguales a las de otras joyerías.</p></div>
+      <div class="rv" style="--d:.1s"><h3 data-i18n="web.p2t">Perfecta en el móvil</h3><p data-i18n="web.p2p">La mayoría de tus clientes te buscan desde el teléfono, y ahí tiene que verse impecable.</p></div>
+      <div class="rv" style="--d:.2s"><h3 data-i18n="web.p3t">Con tu asistente integrado</h3><p data-i18n="web.p3p">Tu web atiende sola, día y noche, con el asistente virtual de AUREplus.</p></div>
+    </div>
+    <div class="web-cta rv"><a class="btn btn-gold" href="#contacto" data-i18n="web.cta">Quiero mi web</a></div>
   </div>
 </section>
 
@@ -507,6 +705,44 @@ var HERO_MAX_SECONDS=6;                // cada clip se muestra como máximo este
     }
     show();
   });
+})();
+</script>
+<script>
+// Comparador antes / después de la sección "Diseño web" (mismo funcionamiento que el de Limpar):
+// se arrastra con el ratón o el dedo, o con las flechas del teclado gracias al control deslizante invisible.
+(function(){
+  var caja=document.getElementById('ba'); if(!caja){return;}
+  var rango=caja.querySelector('input'), animando=null;
+  function poner(p){
+    p=Math.max(0,Math.min(100,p));
+    caja.style.setProperty('--pos',p+'%');
+    rango.value=Math.round(p);
+    // La etiqueta de cada lado desaparece cuando ese lado casi no se ve, para no tapar la otra web
+    caja.classList.toggle('sin-antes',p<14);
+    caja.classList.toggle('sin-despues',p>86);
+  }
+  function desdePuntero(e){ var r=caja.getBoundingClientRect(); poner((e.clientX-r.left)/r.width*100); }
+  function parar(){ if(animando){cancelAnimationFrame(animando);animando=null;} }
+  caja.addEventListener('pointerdown',function(e){ parar(); caja.setPointerCapture(e.pointerId); desdePuntero(e); });
+  caja.addEventListener('pointermove',function(e){ if(caja.hasPointerCapture(e.pointerId)){ desdePuntero(e); } });
+  rango.addEventListener('input',function(){ parar(); poner(+rango.value); });
+
+  // Al llegar a la sección, la línea recorre la imagen de derecha a izquierda una vez para enseñar que se mueve.
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window)){ poner(50); return; }
+  poner(94);
+  var visto=new IntersectionObserver(function(es){
+    if(!es[0].isIntersecting){return;}
+    visto.disconnect();
+    var t0=null, dur=1900, desde=94, hasta=50;
+    function paso(t){
+      if(t0===null){t0=t;}
+      var k=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-k,3);
+      poner(desde+(hasta-desde)*e);
+      animando=k<1?requestAnimationFrame(paso):null;
+    }
+    setTimeout(function(){ animando=requestAnimationFrame(paso); },350);
+  },{threshold:.45});
+  visto.observe(caja);
 })();
 </script>
 <script>
