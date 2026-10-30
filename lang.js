@@ -13,8 +13,10 @@
     'legal.back': '&larr; Back to the site',
 
     // Página principal
-    'home.title': 'AUREplus | 24/7 virtual assistants for jewelers',
-    'home.desc': 'AUREplus builds virtual assistants for jewelers: a 24/7 receptionist on WhatsApp, Instagram and your website that answers questions and sends photos of your pieces.',
+    'home.title': 'Automation and websites for jewelers | AUREplus',
+    'home.desc': 'Automation for jewelry stores: a 24/7 virtual assistant and chatbot on WhatsApp, Instagram and your website, plus custom web design. Try AUREplus free for 7 days.',
+    'web.n.alt': 'Example of a modern jewelry store website, custom designed by AUREplus',
+    'web.o.alt': 'Example of an outdated jewelry store website, before the redesign',
     'nav.home': 'AUREplus, home',
     'nav.open': 'Open menu',
     'nav.close': 'Close menu',
@@ -25,7 +27,7 @@
 
     'hero.eyebrow': 'AUREplus · Systems for jewelers',
     'hero.title': 'The luxury of being<br><em>always available</em>.',
-    'hero.monogram': 'AUREplus monogram',
+    'hero.monogram': 'AUREplus monogram, automation and web design for jewelers',
     'hero.f1': 'Always-on service',
     'hero.f2': 'WhatsApp, Instagram and web',
     'hero.f3': 'Jewelers only',

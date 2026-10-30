@@ -3,8 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title data-i18n="home.title">AUREplus | Asistentes virtuales 24/7 para joyerías</title>
-<meta name="description" data-i18n-attr="content:home.desc" content="AUREplus crea asistentes virtuales para joyerías: una recepcionista 24/7 por WhatsApp, Instagram y web que responde dudas y envía imágenes de las piezas.">
+<title data-i18n="home.title">Automatización y páginas web para joyerías | AUREplus</title>
+<meta name="description" data-i18n-attr="content:home.desc" content="Automatización para joyerías: asistente virtual y chatbot 24/7 en WhatsApp, Instagram y web, y diseño de páginas web a medida. Prueba AUREplus 7 días gratis.">
+<!-- Palabras clave: Google ya no las usa para posicionar, pero otros buscadores sí las leen -->
+<meta name="keywords" content="automatización para joyerías, automatizaciones para negocios, chatbot para joyerías, asistente virtual para joyerías, chatbot WhatsApp, automatización WhatsApp e Instagram, atención al cliente 24/7, inteligencia artificial para joyerías, diseño web para joyerías, creación de páginas web, páginas web a medida, diseño web personalizado, agencia de automatización, Córdoba, AUREplus">
 <!-- Icono de la web: cuadrado y múltiplo de 48 px, como pide Google para mostrarlo en los resultados -->
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
@@ -16,8 +18,8 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AUREplus">
 <meta property="og:url" content="https://www.aureplus.com/">
-<meta property="og:title" content="AUREplus | Asistentes virtuales 24/7 para joyerías">
-<meta property="og:description" content="Una recepcionista 24/7 para tu joyería en WhatsApp, Instagram y web: responde dudas, envía fotos de las piezas y acompaña a cada cliente.">
+<meta property="og:title" content="AUREplus | Automatización y páginas web para joyerías">
+<meta property="og:description" content="Asistente virtual 24/7 para tu joyería en WhatsApp, Instagram y web, y páginas web a medida que enamoran a tus clientes.">
 <meta property="og:image" content="https://www.aureplus.com/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -31,14 +33,27 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
+      "@type": ["Organization", "ProfessionalService"],
       "@id": "https://www.aureplus.com/#organization",
       "name": "AUREplus",
       "url": "https://www.aureplus.com/",
       "logo": "https://www.aureplus.com/favicon-192.png",
+      "image": "https://www.aureplus.com/og-image.jpg",
       "email": "contacto@aureplus.com",
-      "description": "Agencia de automatización especializada en joyerías: asistentes virtuales que atienden a los clientes 24/7 por WhatsApp, Instagram y web.",
-      "areaServed": "ES",
+      "description": "Agencia de automatización y diseño web especializada en joyerías: asistentes virtuales y chatbots que atienden a los clientes 24/7 por WhatsApp, Instagram y web, y páginas web a medida.",
+      "slogan": "El lujo de estar siempre disponible.",
+      "address": {"@type": "PostalAddress", "addressLocality": "Córdoba", "addressRegion": "Andalucía", "addressCountry": "ES"},
+      "areaServed": {"@type": "Country", "name": "España"},
+      "knowsAbout": ["Automatización de procesos", "Chatbots", "Asistentes virtuales con inteligencia artificial", "Automatización de WhatsApp", "Automatización de Instagram", "Atención al cliente 24/7", "Diseño web", "Creación de páginas web", "Joyerías"],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Servicios de AUREplus",
+        "itemListElement": [
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Asistente virtual y chatbot para joyerías", "serviceType": "Automatización de atención al cliente", "description": "Recepcionista virtual 24/7 en WhatsApp, Instagram y la web: responde dudas sobre piezas, precios y disponibilidad, envía fotos del catálogo y propone citas en tienda."}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Automatización de WhatsApp e Instagram", "serviceType": "Automatización de mensajería", "description": "Respuestas automáticas y seguimiento de clientes en los canales donde ya escriben a la joyería."}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Diseño y creación de páginas web para joyerías", "serviceType": "Diseño web", "description": "Páginas web a medida, modernas y adaptadas al móvil, con el asistente virtual integrado."}}
+        ]
+      },
       "sameAs": ["https://www.instagram.com/aureplus_/"]
     },
     {
@@ -420,7 +435,7 @@ footer a{text-decoration:none;margin-left:18px}footer a:hover{color:var(--gold)}
       <h1 data-i18n="hero.title">El lujo de estar<br><em>siempre disponible</em>.</h1>
     </div>
     <div class="seal rv" aria-label="AUREplus">
-      <div class="ring"><img src="img/monogram-cream.png" alt="Monograma AUREplus" data-i18n-attr="alt:hero.monogram"></div>
+      <div class="ring"><img src="img/monogram-cream.png" alt="Monograma de AUREplus, automatización y diseño web para joyerías" data-i18n-attr="alt:hero.monogram"></div>
       <ul class="facts">
         <li><b>24/7</b><span data-i18n="hero.f1">Atención continua</span></li>
         <li><div class="apps">
@@ -506,7 +521,7 @@ footer a{text-decoration:none;margin-left:18px}footer a:hover{color:var(--gold)}
                 <div class="neu-conf"><span><b>✦</b> <span data-i18n="web.n.c1">Taller propio</span></span><span><b>✦</b> <span data-i18n="web.n.c2">Garantía de por vida</span></span><span><b>✦</b> <span data-i18n="web.n.c3">Envío asegurado</span></span></div>
               </div>
               <div class="neu-img">
-                <img src="img/hero.jpg" alt="" loading="lazy">
+                <img src="img/hero.jpg" alt="Ejemplo de página web moderna para una joyería, diseñada a medida por AUREplus" data-i18n-attr="alt:web.n.alt" loading="lazy">
                 <div class="neu-chat"><b data-i18n="web.n.chatn">Asistente · en línea</b><span data-i18n="web.n.chat">¡Hola! ¿Te ayudo a encontrar tu anillo?</span></div>
                 <div class="neu-prod"><b data-i18n="web.n.prod">Solitario Aurora</b><span data-i18n="web.n.price">Oro 18k · desde 1.250 €</span></div>
               </div>
@@ -530,7 +545,7 @@ footer a{text-decoration:none;margin-left:18px}footer a:hover{color:var(--gold)}
               <div class="old-tit" data-i18n="web.o.tit">Bienvenidos a la web de JOYERIA AURORA!!!</div>
               <div class="old-marq"><span data-i18n="web.o.marq">*** OFERTAS EN ORO 18K *** VISITE NUESTRA TIENDA *** ABIERTO DE LUNES A SABADO ***</span></div>
               <div class="old-cuerpo">
-                <div class="old-foto"><img src="img/hero.jpg" alt="" loading="lazy"><small data-i18n="web.o.foto">foto_anillo2.jpg</small></div>
+                <div class="old-foto"><img src="img/hero.jpg" alt="Ejemplo de página web anticuada de una joyería, antes del rediseño" data-i18n-attr="alt:web.o.alt" loading="lazy"><small data-i18n="web.o.foto">foto_anillo2.jpg</small></div>
                 <div class="old-txt">
                   <div class="obra" data-i18n="web.o.obra">PÁGINA EN CONSTRUCCIÓN</div>
                   <span data-i18n="web.o.t1">Somos una joyeria con mucha experiencia. Tenemos anillos, pendientes, collares y mucho mas.</span>
